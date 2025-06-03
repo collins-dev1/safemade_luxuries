@@ -104,14 +104,14 @@
                         </li>
                         <li class="lvl1 parent dropdown"><a href="#">Pages <i class="anm anm-angle-down-l"></i></a>
                           <ul class="dropdown">
-							<li><a href="checkout.html" class="site-nav">Checkout</a></li>
-                            <li><a href="about-us.html" class="site-nav">About Us <span class="lbl nm_label1">New</span> </a></li>
-                            <li><a href="contact-us.html" class="site-nav">Contact Us</a></li>
-                            <li><a href="faqs.html" class="site-nav">FAQs</a></li>
-                            <li><a href="coming-soon.html" class="site-nav">Coming soon <span class="lbl nm_label1">New</span> </a></li>
+							<li><a href="{{route('checkout')}}" class="site-nav">Checkout</a></li>
+                            <li><a href="{{route('aboutus')}}" class="site-nav">About Us <span class="lbl nm_label1">New</span> </a></li>
+                            <li><a href="{{route('contactus')}}" class="site-nav">Contact Us</a></li>
+                            <li><a href="{{route('faq')}}" class="site-nav">FAQs</a></li>
+                            <li><a href="{{route('comingsoon')}}" class="site-nav">Coming soon <span class="lbl nm_label1">New</span> </a></li>
                           </ul>
                         </li>
-                        <li class="lvl1 parent dropdown"><a href="#">Blog <i class="anm anm-angle-down-l"></i></a>
+                        <li class="lvl1 parent dropdown"><a href="{{route('blog')}}">Blog <i class="anm anm-angle-down-l"></i></a>
 
                         </li>
                       </ul>
@@ -226,14 +226,14 @@
         </li>
         	<li class="lvl1 parent megamenu"><a href="">Pages <i class="anm anm-plus-l"></i></a>
           <ul>
-            <li><a href="checkout.html" class="site-nav">Checkout</a></li>
-            <li><a href="about-us.html" class="site-nav">About Us<span class="lbl nm_label1">New</span></a></li>
-            <li><a href="contact-us.html" class="site-nav">Contact Us</a></li>
-            <li><a href="faqs.html" class="site-nav">FAQs</a></li>
-            <li><a href="coming-soon.html" class="site-nav">Coming soon<span class="lbl nm_label1">New</span></a></li>
+            <li><a href="{{route('checkout')}}" class="site-nav">Checkout</a></li>
+            <li><a href="{{route('aboutus')}}" class="site-nav">About Us<span class="lbl nm_label1">New</span></a></li>
+            <li><a href="{{route('contactus')}}" class="site-nav">Contact Us</a></li>
+            <li><a href="{{route('faq')}}" class="site-nav">FAQs</a></li>
+            <li><a href="{{route('comingsoon')}}" class="site-nav">Coming soon<span class="lbl nm_label1">New</span></a></li>
           </ul>
         </li>
-        	<li class="lvl1 parent megamenu"><a href="blog-article.html">Blog</a>
+        	<li class="lvl1 parent megamenu"><a href="{{route('blog')}}">Blog</a>
         </li>
       </ul>
 	</div>
