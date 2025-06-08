@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
-<!-- belle/blog-fullwidth.html   11 Nov 2019 12:46:09 GMT -->
+<!-- belle/login.html   11 Nov 2019 12:22:27 GMT -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Blog | Safemade Luxuries</title>
+<title>Login | Safemade Luxuries</title>
 <meta name="description" content="description">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Favicon -->
@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="{{asset('landing/assets/css/style.css')}}">
 <link rel="stylesheet" href="{{asset('landing/assets/css/responsive.css')}}">
 </head>
-<body class="template-blog belle">
+<body class="page-template belle">
 <div class="pageWrapper">
 	<!--Search Form Drawer-->
 	<div class="search">
@@ -32,11 +32,11 @@
     </div>
     <!--End Search Form Drawer-->
     <!--Top Header-->
-    <div class="top-header">
+      <div class="top-header">
       <div class="container-fluid">
         <div class="row">
           <div class="col-10 col-sm-8 col-md-5 col-lg-4">
-            <a href="tel:+2349032409911" target="_blank">
+            <a href="tel:+2349032409911">
               <p class="phone-no"><i class="anm anm-phone-s"></i> +234 903 240 9911</p>
             </a>
           </div>
@@ -48,8 +48,8 @@
           <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
             <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
             <ul class="customer-links list-inline">
-              <li><a href="{{route('login')}}">Login</a></li>
-              <li><a href="{{route('register')}}">Create Account</a></li>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="register.html">Create Account</a></li>
             </ul>
           </div>
         </div>
@@ -241,124 +241,61 @@
     <!--Body Content-->
     <div id="page-content">
     	<!--Page Title-->
-    	<div class="page section-header text-center mb-0">
+    	<div class="page section-header text-center">
 			<div class="page-title" style="padding: 8rem;">
-        		<div class="wrapper"><h1 class="page-width">Blog</h1></div>
+        		<div class="wrapper"><h1 class="page-width">Login</h1></div>
       		</div>
 		</div>
         <!--End Page Title-->
-	    <div class="bredcrumbWrap">
-            <div class="container breadcrumbs">
-                <a href="index.html" title="Back to the home page">Home</a><span aria-hidden="true">›</span><span>Blog</span>
-            </div>
-        </div>
+
         <div class="container">
         	<div class="row">
-                <!--Main Content-->
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
-                	<div class="custom-search">
-                        <form action="http://annimexweb.com/search" method="get" class="input-group search-header search" role="search" style="position: relative;">
-                            <input class="search-header__input search__input input-group__field" type="search" name="q" placeholder="Search" aria-label="Search" autocomplete="off">
-                            <span class="input-group__btn"><button class="btnSearch" type="submit"> <i class="icon anm anm-search-l"></i> </button></span>
-                        </form>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3">
+                	<div class="mb-4">
+                       <form method="POST" action="{{ route('login') }}" id="CustomerLoginForm" accept-charset="UTF-8" class="contact-form">
+                        @csrf
+                          <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label for="CustomerEmail">Email</label>
+                                    <input id="CustomerEmail" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label for="CustomerPassword">Password</label>
+                                    <input id="CustomerPassword" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="text-center col-12 col-sm-12 col-md-12 col-lg-12">
+                                <input type="submit" class="btn mb-3" value="Sign In">
+                                <p class="mb-4">
+                                    @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}" id="RecoverPassword">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+                                @endif &nbsp; | &nbsp;
+								    <a href="{{route('register')}}" id="customer_register_link">Create account</a>
+                                </p>
+                            </div>
+                         </div>
+                     </form>
                     </div>
-                    <div class="blog--list-view blog--grid-load-more">
-                    	<div class="article">
-                            <!-- Article Image -->
-                             <a class="article_featured-image" href="#"><img class="blur-up lazyload" data-src="assets/images/blog/blog-post-1.jpg" src="assets/images/blog/blog-post-1.jpg" alt="It's all about how you wear"></a>
-                            <h2 class="h3"><a href="blog-left-sidebar.html">It's all about how you wear</a></h2>
-                            <ul class="publish-detail">
-                                <li><i class="anm anm-user-al" aria-hidden="true"></i>  User</li>
-                                <li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">May 02, 2017</time></li>
-                                <li>
-                                    <ul class="inline-list">
-                                        <li><i class="icon anm anm-comments-l"></i> <a href="#"> 0 comments</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="rte">
-                                <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de......</p>
-                                 </div>
-                            <p><a href="#" class="btn btn-secondary btn--small">Read more <i class="fa fa-caret-right" aria-hidden="true"></i></a></p>
-                        </div>
-                        <div class="article">
-                            <!-- Article Image -->
-                             <a class="article_featured-image" href="#"><img class="blur-up lazyload" data-src="assets/images/blog/blog-post-2.jpg" src="assets/images/blog/blog-post-2.jpg" alt="27 Days of Spring Fashion Recap"></a>
-                            <h2 class="h3"><a href="blog-right-sidebar.html">27 Days of Spring Fashion Recap</a></h2>
-                            <ul class="publish-detail">
-                                <li><i class="anm anm-user-al" aria-hidden="true"></i>  User</li>
-                                <li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">May 02, 2017</time></li>
-                                <li>
-                                    <ul class="inline-list">
-                                        <li><i class="icon anm anm-comments-l"></i> <a href="#"> 0 comments</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="rte">
-                                <p>Plusieurs variations de Lorem Ipsum peuvent être trouvées ici ou là, mais la majeure partie d'entre elles a été altérée par l'addition d'humour ou de mots aléatoires qui ne ressemblent pas une seconde à du texte standard. Si vous voulez utiliser un passage du Lorem Ipsum, vous devez être sûr qu'il n'y a rien d'embarrassant caché dans le texte. Tous les générateurs de Lorem Ipsum sur Internet tendent à reproduire......</p>
-                                 </div>
-                            <p><a href="#" class="btn btn-secondary btn--small">Read more <i class="fa fa-caret-right" aria-hidden="true"></i></a></p>
-                        </div>
-                        <div class="article">
-                            <!-- Article Image -->
-                             <a class="article_featured-image" href="#"><img class="blur-up lazyload" data-src="assets/images/blog/blog-post-3.jpg" src="assets/images/blog/blog-post-3.jpg" alt="How to Wear The Folds Trend Four Ways"></a>
-                            <h2 class="h3"><a href="#">How to Wear The Folds Trend Four Ways</a></h2>
-                            <ul class="publish-detail">
-                                <li><i class="anm anm-user-al" aria-hidden="true"></i>  User</li>
-                                <li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">May 02, 2017</time></li>
-                                <li>
-                                    <ul class="inline-list">
-                                        <li><i class="icon anm anm-comments-l"></i> <a href="#"> 10 comments</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="rte">
-                                <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure......</p>
-                                 </div>
-                            <p><a href="#" class="btn btn-secondary btn--small">Read more <i class="fa fa-caret-right" aria-hidden="true"></i></a></p>
-                        </div>
-                        <div class="article">
-                            <!-- Article Image -->
-                             <a class="article_featured-image" href="#"><img class="blur-up lazyload" data-src="assets/images/blog/blog-post-4.jpg" src="assets/images/blog/blog-post-4.jpg" alt="Accusantium doloremque"></a>
-                            <h2 class="h3"><a href="#">Accusantium doloremque</a></h2>
-                            <ul class="publish-detail">
-                                <li><i class="anm anm-user-al" aria-hidden="true"></i>  User</li>
-                                <li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">May 02, 2017</time></li>
-                                <li>
-                                    <ul class="inline-list">
-                                        <li><i class="icon anm anm-comments-l"></i> <a href="#"> 3 comments</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="rte">
-                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat......</p>
-                                 </div>
-                            <p><a href="#" class="btn btn-secondary btn--small">Read more <i class="fa fa-caret-right" aria-hidden="true"></i></a></p>
-                        </div>
-                        <div class="article">
-                            <!-- Article Image -->
-                             <a class="article_featured-image" href="#"><img class="blur-up lazyload" data-src="assets/images/blog/blog-post-6.jpg" src="assets/images/blog/blog-post-4.jpg" alt="Accusantium doloremque"></a>
-                            <h2 class="h3"><a href="#">Accusantium doloremque</a></h2>
-                            <ul class="publish-detail">
-                                <li><i class="anm anm-user-al" aria-hidden="true"></i>  User</li>
-                                <li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">May 02, 2017</time></li>
-                                <li>
-                                    <ul class="inline-list">
-                                        <li><i class="icon anm anm-comments-l"></i> <a href="#"> 3 comments</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="rte">
-                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat......</p>
-                                 </div>
-                            <p><a href="#" class="btn btn-secondary btn--small">Read more <i class="fa fa-caret-right" aria-hidden="true"></i></a></p>
-                        </div>
-                        <div class="loadmore-post">
-                            <a href="#;" class="btn loadMorepost">Load More</a>
-                        </div>
-                    </div>
-                </div>
-                <!--End Main Content-->
+               	</div>
             </div>
         </div>
 
@@ -366,7 +303,7 @@
     <!--End Body Content-->
 
     <!--Footer-->
-    <footer id="footer">
+     <footer id="footer">
         <div class="newsletter-section">
             <div class="container">
                 <div class="row">
@@ -488,5 +425,5 @@
 </div>
 </body>
 
-<!-- belle/blog-fullwidth.html   11 Nov 2019 12:46:09 GMT -->
+<!-- belle/login.html   11 Nov 2019 12:22:27 GMT -->
 </html>

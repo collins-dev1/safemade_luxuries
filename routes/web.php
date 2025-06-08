@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -33,3 +34,11 @@ Route::get('blog', function(){
 Route::get('/checkout', function(){
     return view('checkout');
 })->name('checkout');
+
+Route::get('/login2', function(){
+    return view('auth.login2');
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

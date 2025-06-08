@@ -36,7 +36,7 @@
         <div class="container-fluid">
             <div class="row">
                  <div class="col-10 col-sm-8 col-md-5 col-lg-4">
-                   <a href="tel:+2349032409911">
+                   <a href="tel:+2349032409911" target="_blank">
                      <p class="phone-no"><i class="anm anm-phone-s"></i> +234 903 240 9911</p>
                    </a>
                 </div>
@@ -46,8 +46,8 @@
                 <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
                 	<span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
                     <ul class="customer-links list-inline">
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="register.html">Create Account</a></li>
+                        <li><a href="{{route('login')}}">Login</a></li>
+                        <li><a href="{{route('register')}}">Create Account</a></li>
                     </ul>
                 </div>
             </div>
