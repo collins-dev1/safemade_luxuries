@@ -48,8 +48,8 @@
           <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
             <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
             <ul class="customer-links list-inline">
-              <li><a href="login.html">Login</a></li>
-              <li><a href="register.html">Create Account</a></li>
+              <li><a href="{{route('login')}}">Login</a></li>
+              <li><a href="{{route('register')}}">Create Account</a></li>
             </ul>
           </div>
         </div>
@@ -355,21 +355,15 @@
                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
                         	<h4 class="h4">Informations</h4>
                             <ul>
-                            	<li><a href="#">About us</a></li>
-                                <li><a href="#">Careers</a></li>
-                                <li><a href="#">Privacy policy</a></li>
-                                <li><a href="#">Terms &amp; condition</a></li>
+                            	<li><a href="{{route('aboutus')}}">About us</a></li>
                                 <li><a href="#">My Account</a></li>
                             </ul>
                         </div>
                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
                         	<h4 class="h4">Customer Services</h4>
                             <ul>
-                            	<li><a href="#">Request Personal Data</a></li>
-                                <li><a href="#">FAQ's</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Orders and Returns</a></li>
-                                <li><a href="#">Support Center</a></li>
+                                <li><a href="{{route('faq')}}">FAQ's</a></li>
+                                <li><a href="{{route('contactus')}}">Contact Us</a></li>
                             </ul>
                         </div>
                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 contact-box">
