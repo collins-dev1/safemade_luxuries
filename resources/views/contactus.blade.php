@@ -33,28 +33,53 @@
     <!--End Search Form Drawer-->
     <!--Top Header-->
     <div class="top-header">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-10 col-sm-8 col-md-5 col-lg-4">
-            <a href="tel:+2349032409911" target="_blank">
-              <p class="phone-no"><i class="anm anm-phone-s"></i> +234 903 240 9911</p>
-            </a>
-          </div>
-          <div class="col-sm-4 col-md-4 col-lg-4 d-none d-lg-none d-md-block d-lg-block">
-            <div class="text-center">
-              <p class="top-header_middle-text"> Worldwide Express Shipping</p>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-10 col-sm-8 col-md-5 col-lg-4">
+                        <a href="tel:+2349032409911" target="_blank">
+                            <p class="phone-no"><i class="anm anm-phone-s"></i> +234 903 240 9911</p>
+                        </a>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 d-none d-lg-none d-md-block d-lg-block">
+                        <div class="text-center">
+                            <p class="top-header_middle-text"> Worldwide Express Shipping</p>
+                        </div>
+                    </div>
+                    @auth
+                        @if (Auth::user()->usertype == 0)
+                            <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
+                                <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
+                                <ul class="customer-links list-inline text-center">
+                                    <h6 style="text-align: center; color: #4a6cf7">Welcome <span class="wave">👋</span> {{ Auth::user()->name }}</h6>
+                                    <li><a href="#"><i class="fas fa-user mr-2"></i> Profile</a></li>
+                                    <li><a href="#"><i class="fas fa-edit mr-2"></i> Edit Account</a></li>
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                            </a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                class="d-none">
+                                                @csrf
+                                            </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        @endif
+                    @else
+                        <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
+                            <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al"
+                                    aria-hidden="true"></i></span>
+                            <ul class="customer-links list-inline">
+                                <li><a href="{{ route('login') }}">Login</a></li>
+                                <li><a href="{{ route('register') }}">Create Account</a></li>
+                            </ul>
+                        </div>
+                    @endauth
+
+                </div>
             </div>
-          </div>
-          <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
-            <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
-            <ul class="customer-links list-inline">
-              <li><a href="{{route('login')}}">Login</a></li>
-              <li><a href="{{route('register')}}">Create Account</a></li>
-            </ul>
-          </div>
         </div>
-      </div>
-    </div>
     <!--End Top Header-->
     <!--Header-->
    <div class="header-wrap classicHeader animated d-flex">
