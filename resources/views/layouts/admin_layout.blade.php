@@ -21,6 +21,10 @@
     <link rel="icon" href="{{asset('landing/assets/images/logo/SelfmadeLuxuries.jpg')}}" sizes="192x192" />
     <link rel="apple-touch-icon" href="{{asset('landing/assets/images/logo/SelfmadeLuxuries.jpg')}}" />
     <title>Safemade Luxuries Admin Dashboard</title>
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
 </head>
 
 <body>
@@ -167,21 +171,21 @@
                                 <div id="submenu-2" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">All Users</a>
+                                            <a class="nav-link" href="{{route('all_users')}}">All Users</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
-                                    data-target="#submenu-3" aria-controls="submenu-3"><i class="fa fa-fw fa-users"></i>Speakers</a>
+                                    data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-shopping-cart"></i>Product</a>
                                 <div id="submenu-3" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Add Speaker</a>
+                                            <a class="nav-link" href="{{route('add_product')}}">Add Product</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Manage Speakers</a>
+                                            <a class="nav-link" href="">Manage Product</a>
                                         </li>
                                     </ul>
                                 </div>
