@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\products;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -53,4 +57,61 @@ class AdminController extends Controller
     public function add_product(){
         return view('admin.add_product');
     }
+
+    public function create_product(Request $request)
+{
+    // dd($request->all());
+    \Log::info('Form submission attempt', $request->all());
+
+    try {
+        $validated = $request->validate([
+            'product_title' => 'required|string|max:255',
+            'product_description' => 'required|string',
+            'product_oldprice' => 'required|numeric',
+            'product_newprice' => 'required|numeric',
+            'product_photo' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
+        ]);
+
+        // Debug: Check if file is valid
+        if (!$request->file('product_photo')->isValid()) {
+            throw new \Exception('Uploaded file is not valid');
+        }
+
+        // Ensure directory exists
+        $storagePath = storage_path('app/public/product_photos');
+        if (!File::exists($storagePath)) {
+            File::makeDirectory($storagePath, 0755, true);
+        }
+
+        // Store file
+        $path = $request->file('product_photo')->store('product_photos', 'public');
+
+        // Create product
+        $product = products::create([
+            'product_title' => $validated['product_title'],
+            'product_description' => $validated['product_description'],
+            'product_oldprice' => $validated['product_oldprice'],
+            'product_newprice' => $validated['product_newprice'],
+            'product_photo' => Storage::url($path)
+        ]);
+
+        \Log::info('Product created successfully', $product->toArray());
+
+        Alert::success('Success!', 'Product created successfully');
+        return back();
+
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        \Log::error('Validation failed', ['errors' => $e->errors()]);
+        return back()->withErrors($e->errors());
+
+    } catch (\Exception $e) {
+        \Log::error('Product creation failed', [
+            'error' => $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ]);
+
+        Alert::error('Error', 'Failed to create product: '.$e->getMessage());
+        return back();
+    }
+}
 }

@@ -48,6 +48,7 @@ Route::middleware([AdminMiddleware::class])->group(function (){
     Route::get('/unban_user/{id}', [AdminController::class, 'unban_user'])->name('unban_user');
     Route::get('/delete_user/{id}', [AdminController::class, 'delete_user'])->name('delete_user');
     Route::get('/add_product', [AdminController::class, 'add_product'])->name('add_product');
+    Route::post('/create_product', [AdminController::class, 'create_product'])->name('create_product');
 });
 
 Route::middleware([UserMiddleware::class])->group(function(){
