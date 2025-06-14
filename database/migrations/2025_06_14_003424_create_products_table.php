@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('product_oldprice');
             $table->decimal('product_newprice');
             $table->string('product_photo');
+            $table->string('product_photo2');
             $table->timestamps();
         });
     }

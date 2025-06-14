@@ -185,7 +185,7 @@
                                             <a class="nav-link" href="{{route('add_product')}}">Add Product</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Manage Product</a>
+                                            <a class="nav-link" href="{{route('manage_product')}}">Manage Product</a>
                                         </li>
                                     </ul>
                                 </div>

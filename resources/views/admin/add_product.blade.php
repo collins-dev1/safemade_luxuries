@@ -19,6 +19,10 @@
                 <input type="file" class="form-control" accept="image/*" name="product_photo" id="product_photo">
             </div>
             <div class="mt-3">
+                <label for="">Product Second Photo</label>
+                <input type="file" class="form-control" accept="image/*" name="product_photo2" id="product_photo2">
+            </div>
+            <div class="mt-3">
                 <label for="">Product Old Price</label>
                 <input type="number" class="form-control" name="product_oldprice" id="product_oldprice" placeholder="Add the Product Old Price">
             </div>

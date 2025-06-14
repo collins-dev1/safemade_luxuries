@@ -3,15 +3,18 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\UserMiddleware;
+use App\Models\products;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('index');
+    $products = products::orderBy('created_at', 'desc')->limit(6)->get();
+    return view('index', compact('products'));
 });
 
 Route::get('/shops', function(){
-    return view('shops');
+    $products = products::all();
+    return view('shops', compact('products'));
 })->name('shops');
 
 Route::get('/aboutus', function(){
@@ -49,6 +52,10 @@ Route::middleware([AdminMiddleware::class])->group(function (){
     Route::get('/delete_user/{id}', [AdminController::class, 'delete_user'])->name('delete_user');
     Route::get('/add_product', [AdminController::class, 'add_product'])->name('add_product');
     Route::post('/create_product', [AdminController::class, 'create_product'])->name('create_product');
+    Route::get('/manage_product', [AdminController::class, 'manage_product'])->name('manage_product');
+    Route::get('/delete_product/{id}', [AdminController::class, 'delete_product'])->name('delete_product');
+    Route::get('/edit_product/{id}', [AdminController::class, 'edit_product'])->name('edit_product');
+    Route::post('/product/update/{id}', [AdminController::class, 'edit_a_product'])->name('product.update');
 });
 
 Route::middleware([UserMiddleware::class])->group(function(){

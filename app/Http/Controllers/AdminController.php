@@ -60,7 +60,6 @@ class AdminController extends Controller
 
     public function create_product(Request $request)
 {
-    // dd($request->all());
     \Log::info('Form submission attempt', $request->all());
 
     try {
@@ -70,12 +69,8 @@ class AdminController extends Controller
             'product_oldprice' => 'required|numeric',
             'product_newprice' => 'required|numeric',
             'product_photo' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'product_photo2' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
-
-        // Debug: Check if file is valid
-        if (!$request->file('product_photo')->isValid()) {
-            throw new \Exception('Uploaded file is not valid');
-        }
 
         // Ensure directory exists
         $storagePath = storage_path('app/public/product_photos');
@@ -83,8 +78,17 @@ class AdminController extends Controller
             File::makeDirectory($storagePath, 0755, true);
         }
 
-        // Store file
-        $path = $request->file('product_photo')->store('product_photos', 'public');
+        // Store product_photo
+        if (!$request->file('product_photo')->isValid()) {
+            throw new \Exception('Primary photo is not valid');
+        }
+        $path1 = $request->file('product_photo')->store('product_photos', 'public');
+
+        // Store product_photo2 (optional)
+        $path2 = null;
+        if ($request->hasFile('product_photo2') && $request->file('product_photo2')->isValid()) {
+            $path2 = $request->file('product_photo2')->store('product_photos', 'public');
+        }
 
         // Create product
         $product = products::create([
@@ -92,7 +96,8 @@ class AdminController extends Controller
             'product_description' => $validated['product_description'],
             'product_oldprice' => $validated['product_oldprice'],
             'product_newprice' => $validated['product_newprice'],
-            'product_photo' => Storage::url($path)
+            'product_photo' => Storage::url($path1),
+            'product_photo2' => $path2 ? Storage::url($path2) : null,
         ]);
 
         \Log::info('Product created successfully', $product->toArray());
@@ -110,8 +115,96 @@ class AdminController extends Controller
             'trace' => $e->getTraceAsString()
         ]);
 
-        Alert::error('Error', 'Failed to create product: '.$e->getMessage());
+        Alert::error('Error', 'Failed to create product: ' . $e->getMessage());
         return back();
     }
 }
+
+
+public function manage_product(){
+    $products = products::all();
+    return view('admin.manage_product', compact('products'));
+}
+
+public function delete_product($id){
+    $product = products::find($id);
+    $product->delete();
+    Alert::html(
+            '<h3 style="color:black;">Deleted Successfully!</h3>',
+            '<p style="color:black;">You have successfully Deleted this Product.</p>',
+            'success'
+        )->persistent();
+        return redirect()->back();
+}
+
+public function edit_product($id){
+    $product = products::find($id);
+    return view('admin.edit_product', compact('product'));
+}
+
+public function edit_a_product(Request $request, $id)
+{
+    \Log::info('Product edit attempt for ID: ' . $id, $request->all());
+
+    try {
+        $validated = $request->validate([
+            'product_title' => 'required|string|max:255',
+            'product_description' => 'required|string',
+            'product_oldprice' => 'required|numeric',
+            'product_newprice' => 'required|numeric',
+            'product_photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'product_photo2' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+        ]);
+
+        $product = products::findOrFail($id);
+
+        // Update product_photo if provided
+        if ($request->hasFile('product_photo')) {
+            if ($product->product_photo) {
+                $oldPath = str_replace('/storage', 'public', $product->product_photo);
+                Storage::delete($oldPath);
+            }
+
+            $path = $request->file('product_photo')->store('product_photos', 'public');
+            $validated['product_photo'] = Storage::url($path);
+        } else {
+            unset($validated['product_photo']); // Keep existing if not replaced
+        }
+
+        // Update product_photo2 if provided
+        if ($request->hasFile('product_photo2')) {
+            if ($product->product_photo2) {
+                $oldPath2 = str_replace('/storage', 'public', $product->product_photo2);
+                Storage::delete($oldPath2);
+            }
+
+            $path2 = $request->file('product_photo2')->store('product_photos', 'public');
+            $validated['product_photo2'] = Storage::url($path2);
+        } else {
+            unset($validated['product_photo2']); // Keep existing if not replaced
+        }
+
+        $product->update($validated);
+
+        \Log::info('Product updated successfully', $product->toArray());
+
+        Alert::success('Updated!', 'Product updated successfully');
+        return redirect()->route('manage_product');
+
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        \Log::error('Validation failed during product update', ['errors' => $e->errors()]);
+        return back()->withErrors($e->errors());
+
+    } catch (\Exception $e) {
+        \Log::error('Product update failed', [
+            'error' => $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ]);
+
+        Alert::error('Error', 'Failed to update product: ' . $e->getMessage());
+        return back();
+    }
+}
+
+
 }

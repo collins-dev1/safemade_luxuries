@@ -11,8 +11,9 @@ class products extends Model
         'product_description',
         'product_oldprice',
         'product_newprice',
-        'product_photo'
+        'product_photo',
+        'product_photo2'
     ];
 
-    
+
 }
