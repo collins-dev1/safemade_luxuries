@@ -44,6 +44,9 @@ Route::get('/checkout', function(){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'redirect'])->name('home');
+Route::post('/cart/add', [AdminController::class, 'addToCart'])->name('cart.add');
+Route::get('/cart', [AdminController::class, 'viewCart'])->name('cart.view');
+Route::post('/remove-from-cart/{id}', [AdminController::class, 'removeFromCart'])->name('cart.remove');
 
 Route::middleware([AdminMiddleware::class])->group(function (){
     Route::get('all_users', [AdminController::class, 'all_users'])->name('all_users');
@@ -56,6 +59,7 @@ Route::middleware([AdminMiddleware::class])->group(function (){
     Route::get('/delete_product/{id}', [AdminController::class, 'delete_product'])->name('delete_product');
     Route::get('/edit_product/{id}', [AdminController::class, 'edit_product'])->name('edit_product');
     Route::post('/product/update/{id}', [AdminController::class, 'edit_a_product'])->name('product.update');
+
 });
 
 Route::middleware([UserMiddleware::class])->group(function(){

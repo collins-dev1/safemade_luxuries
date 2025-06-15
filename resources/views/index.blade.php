@@ -174,98 +174,86 @@
                         </div>
                     </div>
                     <!--Mobile Logo-->
+                    @php
+                        $cart = session('cart', []);
+                        $cartCount = array_sum(array_column($cart, 'quantity'));
+                        $cartTotal = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $cart));
+                    @endphp
+
                     <div class="col-4 col-sm-3 col-md-3 col-lg-2">
                         <div class="site-cart">
-                            <a href="#;" class="site-header__cart" title="Cart">
+                            <a href="{{ route('cart.view') }}" class="site-header__cart" title="Cart">
                                 <i class="icon anm anm-bag-l"></i>
-                                <span id="CartCount" class="site-header__cart-count"
-                                    data-cart-render="item_count">2</span>
+                                <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">
+                                    {{ $cartCount }}
+                                </span>
                             </a>
+
                             <!--Minicart Popup-->
                             <div id="header-cart" class="block block-cart">
                                 <ul class="mini-products-list">
-                                    <li class="item">
-                                        <a class="product-image" href="#">
-                                            <img src="assets/images/product-images/cape-dress-1.jpg"
-                                                alt="3/4 Sleeve Kimono Dress" title="" />
-                                        </a>
-                                        <div class="product-details">
-                                            <a href="#" class="remove"><i class="anm anm-times-l"
-                                                    aria-hidden="true"></i></a>
-                                            <a href="#" class="edit-i remove"><i class="anm anm-edit"
-                                                    aria-hidden="true"></i></a>
-                                            <a class="pName" href="cart.html">Sleeve Kimono Dress</a>
-                                            <div class="variant-cart">Black / XL</div>
-                                            <div class="wrapQtyBtn">
-                                                <div class="qtyField">
-                                                    <span class="label">Qty:</span>
-                                                    <a class="qtyBtn minus" href="javascript:void(0);"><i
-                                                            class="fa anm anm-minus-r" aria-hidden="true"></i></a>
-                                                    <input type="text" id="Quantity" name="quantity"
-                                                        value="1" class="product-form__input qty">
-                                                    <a class="qtyBtn plus" href="javascript:void(0);"><i
-                                                            class="fa anm anm-plus-r" aria-hidden="true"></i></a>
+                                    @forelse($cart as $id => $item)
+                                        <li class="item">
+                                            <a class="product-image" href="#">
+                                                <img src="{{ $item['photo'] }}" alt="{{ $item['name'] }}"
+                                                    title="" />
+                                            </a>
+                                            <div class="product-details">
+                                                <form action="{{ route('cart.remove', $id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="remove"><i class="anm anm-times-l"
+                                                            aria-hidden="true"></i></button>
+                                                </form>
+
+                                                <a class="pName" href="#">{{ $item['name'] }}</a>
+                                                <div class="wrapQtyBtn">
+                                                    <div class="qtyField">
+                                                        <span class="label">Qty:</span>
+                                                        <input type="text" value="{{ $item['quantity'] }}"
+                                                            class="product-form__input qty" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="priceRow">
+                                                    <div class="product-price">
+                                                        <span
+                                                            class="money">₦{{ number_format($item['price'], 2) }}</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="priceRow">
-                                                <div class="product-price">
-                                                    <span class="money">$59.00</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="item">
-                                        <a class="product-image" href="#">
-                                            <img src="assets/images/product-images/cape-dress-2.jpg"
-                                                alt="Elastic Waist Dress - Black / Small" title="" />
-                                        </a>
-                                        <div class="product-details">
-                                            <a href="#" class="remove"><i class="anm anm-times-l"
-                                                    aria-hidden="true"></i></a>
-                                            <a href="#" class="edit-i remove"><i class="anm anm-edit"
-                                                    aria-hidden="true"></i></a>
-                                            <a class="pName" href="cart.html">Elastic Waist Dress</a>
-                                            <div class="variant-cart">Gray / XXL</div>
-                                            <div class="wrapQtyBtn">
-                                                <div class="qtyField">
-                                                    <span class="label">Qty:</span>
-                                                    <a class="qtyBtn minus" href="javascript:void(0);"><i
-                                                            class="fa anm anm-minus-r" aria-hidden="true"></i></a>
-                                                    <input type="text" id="Quantity" name="quantity"
-                                                        value="1" class="product-form__input qty">
-                                                    <a class="qtyBtn plus" href="javascript:void(0);"><i
-                                                            class="fa anm anm-plus-r" aria-hidden="true"></i></a>
-                                                </div>
-                                            </div>
-                                            <div class="priceRow">
-                                                <div class="product-price">
-                                                    <span class="money">$99.00</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    @empty
+                                        <li class="item">Your cart is empty.</li>
+                                    @endforelse
                                 </ul>
+
                                 <div class="total">
                                     <div class="total-in">
-                                        <span class="label">Cart Subtotal:</span><span class="product-price"><span
-                                                class="money">$748.00</span></span>
+                                        <span class="label">Cart Subtotal:</span>
+                                        <span class="product-price">
+                                            <span class="money">₦{{ number_format($cartTotal, 2) }}</span>
+                                        </span>
                                     </div>
                                     <div class="buttonSet text-center">
-                                        <a href="cart.html" class="btn btn-secondary btn--small">View Cart</a>
-                                        <a href="checkout.html" class="btn btn-secondary btn--small">Checkout</a>
+                                        <a href="{{ route('cart.view') }}" class="btn btn-secondary btn--small">View
+                                            Cart</a>
+                                        <a href="{{ route('cart.view') }}"
+                                            class="btn btn-secondary btn--small">Checkout</a>
                                     </div>
                                 </div>
                             </div>
-                            <!--EndMinicart Popup-->
+                            <!--End Minicart Popup-->
                         </div>
+
                         <div class="site-header__search">
                             <button type="button" class="search-trigger"><i
                                     class="icon anm anm-search-l"></i></button>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
+        @include('sweetalert::alert')
         <!--End Header-->
         <!--Mobile Menu-->
         <div class="mobile-nav-wrapper" role="navigation">
@@ -320,7 +308,9 @@
                                         <h2 class="h1 mega-title slideshow__title">Selfmade Luxuries</h2>
                                         <span class="mega-subtitle slideshow__subtitle">From Hight to low, classic or
                                             modern. We have you covered</span>
-                                        <span class="btn">Shop now</span>
+                                        <a href="{{ route('login') }}">
+                                            <span class="btn">Shop now</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -338,7 +328,9 @@
                                         <h2 class="h1 mega-title slideshow__title">Selfmade Luxuries</h2>
                                         <span class="mega-subtitle slideshow__subtitle">Save up to 50% off this weekend
                                             only</span>
-                                        <span class="btn">Shop now</span>
+                                        <a href="{{ route('login') }}">
+                                            <span class="btn">Shop now</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -364,91 +356,73 @@
                                 </ul>
                                 <div class="tab_container">
                                     @foreach ($products as $product)
-                                    <div id="tab1" class="tab_content grid-products">
-                                        <div class="productSlider">
-                                            <div class="col-12 item">
-                                                <!-- start product image -->
-                                                <div class="product-image">
+                                        <div id="tab1" class="tab_content grid-products">
+                                            <div class="productSlider">
+                                                <div class="col-12 item">
                                                     <!-- start product image -->
-                                                    <a href="short-description.html">
-                                                        <!-- image -->
-                                                        <img class="primary blur-up lazyload"
-                                                            data-src="{{ $product->product_photo }}"
-                                                            src="{{ $product->product_photo }}"
-                                                            alt="image" title="product">
-                                                        <!-- End image -->
-                                                        <!-- Hover image -->
-                                                        <img class="hover blur-up lazyload"
-                                                            data-src="{{ $product->product_photo2 }}"
-                                                            src="{{ $product->product_photo2 }}"
-                                                            alt="image" title="product">
-                                                        <!-- End hover image -->
-                                                        <!-- product label -->
-                                                        <div class="product-labels rectangular"><span
-                                                                class="lbl on-sale">-16%</span> <span
-                                                                class="lbl pr-label1">new</span></div>
-                                                        <!-- End product label -->
-                                                    </a>
-                                                    <!-- end product image -->
-
-                                                    <!-- countdown start -->
-                                                    <div class="saleTime desktop" data-countdown="2022/03/01"></div>
-                                                    <!-- countdown end -->
-
-                                                    <!-- Start product button -->
-                                                    <form class="variants add" action="#"
-                                                        onclick="window.location.href='cart.html'"method="post">
-                                                        <button class="btn btn-addto-cart" type="button"
-                                                            tabindex="0">Add To Cart</button>
-                                                    </form>
-                                                    <div class="button-set">
-                                                        <a href="javascript:void(0)" title="Quick View"
-                                                            class="quick-view-popup quick-view" data-toggle="modal"
-                                                            data-target="#content_quickview">
-                                                            <i class="icon anm anm-search-plus-r"></i>
+                                                    <div class="product-image">
+                                                        <!-- start product image -->
+                                                        <a href="short-description.html">
+                                                            <!-- image -->
+                                                            <img class="primary blur-up lazyload"
+                                                                data-src="{{ $product->product_photo }}"
+                                                                src="{{ $product->product_photo }}" alt="image"
+                                                                title="product">
+                                                            <!-- End image -->
+                                                            <!-- Hover image -->
+                                                            <img class="hover blur-up lazyload"
+                                                                data-src="{{ $product->product_photo2 }}"
+                                                                src="{{ $product->product_photo2 }}" alt="image"
+                                                                title="product">
+                                                            <!-- End hover image -->
+                                                            <!-- product label -->
+                                                            <div class="product-labels rectangular"><span
+                                                                    class="lbl on-sale">-16%</span> <span
+                                                                    class="lbl pr-label1">new</span></div>
+                                                            <!-- End product label -->
                                                         </a>
-                                                        <div class="wishlist-btn">
-                                                            <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                                <i class="icon anm anm-heart-l"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="compare-btn">
-                                                            <a class="compare add-to-compare" href="compare.html"
-                                                                title="Add to Compare">
-                                                                <i class="icon anm anm-random-r"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end product button -->
-                                                </div>
-                                                <!-- end product image -->
-                                                <!--start product details -->
-                                                <div class="product-details text-center">
-                                                    <!-- product name -->
-                                                    <div class="product-name">
-                                                        <a href="short-description.html">{{$product->product_title}}</a>
-                                                    </div>
-                                                    <!-- End product name -->
-                                                    <!-- product price -->
-                                                    <div class="product-price">
-                                                        <span class="old-price">&#8358;{{$product->product_oldprice}}</span>
-                                                        <span class="price">&#8358;{{$product->product_newprice}}</span>
-                                                    </div>
-                                                    <!-- End product price -->
 
-                                                    <div class="product-review">
-                                                        <i class="font-13 fa fa-star"></i>
-                                                        <i class="font-13 fa fa-star"></i>
-                                                        <i class="font-13 fa fa-star"></i>
-                                                        <i class="font-13 fa fa-star-o"></i>
-                                                        <i class="font-13 fa fa-star-o"></i>
+                                                        <!-- Start product button -->
+                                                        <form class="variants add" action="{{ route('cart.add') }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="product_id"
+                                                                value="{{ $product->id }}">
+                                                            <button class="btn btn-addto-cart" type="submit">Add To
+                                                                Cart</button>
+                                                        </form>
                                                     </div>
-                                                    <!-- End Variant -->
+                                                    <!-- end product image -->
+                                                    <!--start product details -->
+                                                    <div class="product-details text-center">
+                                                        <!-- product name -->
+                                                        <div class="product-name">
+                                                            <a
+                                                                href="short-description.html">{{ $product->product_title }}</a>
+                                                        </div>
+                                                        <!-- End product name -->
+                                                        <!-- product price -->
+                                                        <div class="product-price">
+                                                            <span
+                                                                class="old-price">&#8358;{{ $product->product_oldprice }}</span>
+                                                            <span
+                                                                class="price">&#8358;{{ $product->product_newprice }}</span>
+                                                        </div>
+                                                        <!-- End product price -->
+
+                                                        <div class="product-review">
+                                                            <i class="font-13 fa fa-star"></i>
+                                                            <i class="font-13 fa fa-star"></i>
+                                                            <i class="font-13 fa fa-star"></i>
+                                                            <i class="font-13 fa fa-star-o"></i>
+                                                            <i class="font-13 fa fa-star-o"></i>
+                                                        </div>
+                                                        <!-- End Variant -->
+                                                    </div>
+                                                    <!-- End product details -->
                                                 </div>
-                                                <!-- End product details -->
                                             </div>
                                         </div>
-                                    </div>
                                     @endforeach
                                     <div id="tab2" class="tab_content grid-products">
                                         <div class="productSlider">
@@ -483,24 +457,6 @@
                                                         <button class="btn btn-addto-cart" type="button"
                                                             tabindex="0">Add To Cart</button>
                                                     </form>
-                                                    <div class="button-set">
-                                                        <a href="javascript:void(0)" title="Quick View"
-                                                            class="quick-view-popup quick-view" data-toggle="modal"
-                                                            data-target="#content_quickview">
-                                                            <i class="icon anm anm-search-plus-r"></i>
-                                                        </a>
-                                                        <div class="wishlist-btn">
-                                                            <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                                <i class="icon anm anm-heart-l"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="compare-btn">
-                                                            <a class="compare add-to-compare" href="compare.html"
-                                                                title="Add to Compare">
-                                                                <i class="icon anm anm-random-r"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
                                                     <!-- end product button -->
                                                 </div>
                                                 <!-- end product image -->
@@ -558,24 +514,6 @@
                                                         <button class="btn btn-addto-cart" type="button"
                                                             tabindex="0">Add To Cart</button>
                                                     </form>
-                                                    <div class="button-set">
-                                                        <a href="javascript:void(0)" title="Quick View"
-                                                            class="quick-view-popup quick-view" data-toggle="modal"
-                                                            data-target="#content_quickview">
-                                                            <i class="icon anm anm-search-plus-r"></i>
-                                                        </a>
-                                                        <div class="wishlist-btn">
-                                                            <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                                                <i class="icon anm anm-heart-l"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="compare-btn">
-                                                            <a class="compare add-to-compare" href="compare.html"
-                                                                title="Add to Compare">
-                                                                <i class="icon anm anm-random-r"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
                                                     <!-- end product button -->
                                                 </div>
                                                 <!-- end product image -->
@@ -737,50 +675,49 @@
                         <div class="row">
                             <div class="col-6 col-sm-6 col-md-4 col-lg-4 item grid-view-item style2">
                                 @foreach ($products as $product)
-                                <div class="grid-view_image">
-                                    <!-- start product image -->
-                                    <a href="product-accordion.html" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="grid-view-item__image primary blur-up lazyload"
-                                            data-src="{{ $product->product_photo }}"
-                                            src="{{ $product->product_photo }}"
-                                            alt="image" title="product">
-                                        <!-- End image -->
-                                        <!-- Hover image -->
-                                        <img class="grid-view-item__image hover blur-up lazyload"
-                                            data-src="{{ $product->product_photo2 }}"
-                                            src="{{ $product->product_photo2 }}"
-                                            alt="image" title="product">
-                                        <!-- End hover image -->
-                                        <!-- product label -->
-                                        <div class="product-labels rectangular"><span class="lbl on-sale">-16%</span>
-                                            <span class="lbl pr-label1">new</span>
-                                        </div>
-                                        <!-- End product label -->
-                                    </a>
-                                    <!-- end product image -->
-                                    <!--start product details -->
-                                    <div class="product-details hoverDetails text-center mobile">
-                                        <!-- product name -->
-                                        <div class="product-name">
-                                            <a href="product-accordion.html">{{$product->product_title}}</a>
-                                        </div>
-                                        <!-- End product name -->
-                                        <!-- product price -->
-                                        <div class="product-price">
-                                            <span class="old-price">&#8358;{{$product->product_oldprice}}</span>
-                                            <span class="price">&#8358;{{$product->product_newprice}}</span>
-                                        </div>
-                                        <!-- End product price -->
+                                    <div class="grid-view_image">
+                                        <!-- start product image -->
+                                        <a href="product-accordion.html" class="grid-view-item__link">
+                                            <!-- image -->
+                                            <img class="grid-view-item__image primary blur-up lazyload"
+                                                data-src="{{ $product->product_photo }}"
+                                                src="{{ $product->product_photo }}" alt="image" title="product">
+                                            <!-- End image -->
+                                            <!-- Hover image -->
+                                            <img class="grid-view-item__image hover blur-up lazyload"
+                                                data-src="{{ $product->product_photo2 }}"
+                                                src="{{ $product->product_photo2 }}" alt="image" title="product">
+                                            <!-- End hover image -->
+                                            <!-- product label -->
+                                            <div class="product-labels rectangular"><span
+                                                    class="lbl on-sale">-16%</span>
+                                                <span class="lbl pr-label1">new</span>
+                                            </div>
+                                            <!-- End product label -->
+                                        </a>
+                                        <!-- end product image -->
+                                        <!--start product details -->
+                                        <div class="product-details hoverDetails text-center mobile">
+                                            <!-- product name -->
+                                            <div class="product-name">
+                                                <a href="product-accordion.html">{{ $product->product_title }}</a>
+                                            </div>
+                                            <!-- End product name -->
+                                            <!-- product price -->
+                                            <div class="product-price">
+                                                <span class="old-price">&#8358;{{ $product->product_oldprice }}</span>
+                                                <span class="price">&#8358;{{ $product->product_newprice }}</span>
+                                            </div>
+                                            <!-- End product price -->
 
-                                        <!-- product button -->
-                                        
-                                        <!-- end product button -->
+                                            <!-- product button -->
+
+                                            <!-- end product button -->
+                                        </div>
+                                        <!-- End Variant -->
+                                        <!-- End product details -->
                                     </div>
-                                    <!-- End Variant -->
-                                    <!-- End product details -->
-                                </div>
-                                 @endforeach
+                                @endforeach
                             </div>
                         </div>
                     </div>

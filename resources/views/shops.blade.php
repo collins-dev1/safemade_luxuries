@@ -150,81 +150,83 @@
                         </a>
                     </div>
                 </div>
+                @include('sweetalert::alert')
                 <!--Mobile Logo-->
-                <div class="col-4 col-sm-3 col-md-3 col-lg-2">
-                	<div class="site-cart">
-                    	<a href="#;" class="site-header__cart" title="Cart">
-                        	<i class="icon anm anm-bag-l"></i>
-                            <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">2</span>
-                        </a>
-                        <!--Minicart Popup-->
-                        <div id="header-cart" class="block block-cart">
-                        	<ul class="mini-products-list">
-                                <li class="item">
-                                	<a class="product-image" href="#">
-                                    	<img src="assets/images/product-images/cape-dress-1.jpg" alt="3/4 Sleeve Kimono Dress" title="" />
-                                    </a>
-                                    <div class="product-details">
-                                    	<a href="#" class="remove"><i class="anm anm-times-l" aria-hidden="true"></i></a>
-                                        <a href="#" class="edit-i remove"><i class="anm anm-edit" aria-hidden="true"></i></a>
-                                        <a class="pName" href="cart.html">Sleeve Kimono Dress</a>
-                                        <div class="variant-cart">Black / XL</div>
-                                        <div class="wrapQtyBtn">
-                                            <div class="qtyField">
-                                            	<span class="label">Qty:</span>
-                                                <a class="qtyBtn minus" href="javascript:void(0);"><i class="fa anm anm-minus-r" aria-hidden="true"></i></a>
-                                                <input type="text" id="Quantity" name="quantity" value="1" class="product-form__input qty">
-                                                <a class="qtyBtn plus" href="javascript:void(0);"><i class="fa anm anm-plus-r" aria-hidden="true"></i></a>
+                @php
+                        $cart = session('cart', []);
+                        $cartCount = array_sum(array_column($cart, 'quantity'));
+                        $cartTotal = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $cart));
+                    @endphp
+
+                    <div class="col-4 col-sm-3 col-md-3 col-lg-2">
+                        <div class="site-cart">
+                            <a href="{{ route('cart.view') }}" class="site-header__cart" title="Cart">
+                                <i class="icon anm anm-bag-l"></i>
+                                <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">
+                                    {{ $cartCount }}
+                                </span>
+                            </a>
+
+                            <!--Minicart Popup-->
+                            <div id="header-cart" class="block block-cart">
+                                <ul class="mini-products-list">
+                                    @forelse($cart as $id => $item)
+                                        <li class="item">
+                                            <a class="product-image" href="#">
+                                                <img src="{{ $item['photo'] }}" alt="{{ $item['name'] }}"
+                                                    title="" />
+                                            </a>
+                                            <div class="product-details">
+                                                <form action="{{ route('cart.remove', $id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="remove"><i class="anm anm-times-l"
+                                                            aria-hidden="true"></i></button>
+                                                </form>
+
+                                                <a class="pName" href="#">{{ $item['name'] }}</a>
+                                                <div class="wrapQtyBtn">
+                                                    <div class="qtyField">
+                                                        <span class="label">Qty:</span>
+                                                        <input type="text" value="{{ $item['quantity'] }}"
+                                                            class="product-form__input qty" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="priceRow">
+                                                    <div class="product-price">
+                                                        <span
+                                                            class="money">₦{{ number_format($item['price'], 2) }}</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="priceRow">
-                                        	<div class="product-price">
-                                            	<span class="money">$59.00</span>
-                                            </div>
-                                         </div>
-									</div>
-                                </li>
-                                <li class="item">
-                                	<a class="product-image" href="#">
-                                    	<img src="assets/images/product-images/cape-dress-2.jpg" alt="Elastic Waist Dress - Black / Small" title="" />
-                                    </a>
-                                    <div class="product-details">
-                                    	<a href="#" class="remove"><i class="anm anm-times-l" aria-hidden="true"></i></a>
-                                        <a href="#" class="edit-i remove"><i class="anm anm-edit" aria-hidden="true"></i></a>
-                                        <a class="pName" href="cart.html">Elastic Waist Dress</a>
-                                        <div class="variant-cart">Gray / XXL</div>
-                                        <div class="wrapQtyBtn">
-                                            <div class="qtyField">
-                                            	<span class="label">Qty:</span>
-                                                <a class="qtyBtn minus" href="javascript:void(0);"><i class="fa anm anm-minus-r" aria-hidden="true"></i></a>
-                                                <input type="text" id="Quantity" name="quantity" value="1" class="product-form__input qty">
-                                                <a class="qtyBtn plus" href="javascript:void(0);"><i class="fa anm anm-plus-r" aria-hidden="true"></i></a>
-                                            </div>
-                                        </div>
-                                       	<div class="priceRow">
-                                            <div class="product-price">
-                                                <span class="money">$99.00</span>
-                                            </div>
-                                        </div>
+                                        </li>
+                                    @empty
+                                        <li class="item">Your cart is empty.</li>
+                                    @endforelse
+                                </ul>
+
+                                <div class="total">
+                                    <div class="total-in">
+                                        <span class="label">Cart Subtotal:</span>
+                                        <span class="product-price">
+                                            <span class="money">₦{{ number_format($cartTotal, 2) }}</span>
+                                        </span>
                                     </div>
-                                </li>
-                            </ul>
-                            <div class="total">
-                            	<div class="total-in">
-                                	<span class="label">Cart Subtotal:</span><span class="product-price"><span class="money">$748.00</span></span>
-                                </div>
-                                 <div class="buttonSet text-center">
-                                    <a href="cart.html" class="btn btn-secondary btn--small">View Cart</a>
-                                    <a href="checkout.html" class="btn btn-secondary btn--small">Checkout</a>
+                                    <div class="buttonSet text-center">
+                                        <a href="{{ route('cart.view') }}" class="btn btn-secondary btn--small">View
+                                            Cart</a>
+                                        <a href="{{ route('cart.view') }}"
+                                            class="btn btn-secondary btn--small">Checkout</a>
+                                    </div>
                                 </div>
                             </div>
+                            <!--End Minicart Popup-->
                         </div>
-                        <!--EndMinicart Popup-->
+
+                        <div class="site-header__search">
+                            <button type="button" class="search-trigger"><i
+                                    class="icon anm anm-search-l"></i></button>
+                        </div>
                     </div>
-                    <div class="site-header__search">
-                    	<button type="button" class="search-trigger"><i class="icon anm anm-search-l"></i></button>
-                    </div>
-                </div>
         	</div>
         </div>
     </div>
@@ -329,52 +331,20 @@
                 	<div class="productList">
                     	<!--Toolbar-->
                         <button type="button" class="btn btn-filter d-block d-md-none d-lg-none"> Product Filters</button>
-                    	<div class="toolbar">
-                        	<div class="filters-toolbar-wrapper">
-                            	<div class="row">
-                                	<div class="col-4 col-md-4 col-lg-4 filters-toolbar__item collection-view-as d-flex justify-content-start align-items-center">
-                                    	<a href="shop-left-sidebar.html" title="Grid View" class="change-view change-view--active">
-                                        	<img src="{{asset('landing/assets/images/grid.jpg')}}" alt="Grid" />
-                                        </a>
-                                        <a href="shop-listview.html" title="List View" class="change-view">
-                                        	<img src="{{asset('landing/assets/images/list.jpg')}}" alt="List" />
-                                        </a>
-                                    </div>
-                                    <div class="col-4 col-md-4 col-lg-4 text-center filters-toolbar__item filters-toolbar__item--count d-flex justify-content-center align-items-center">
-                                    	<span class="filters-toolbar__product-count">Showing: 22</span>
-                                    </div>
-                                    <div class="col-4 col-md-4 col-lg-4 text-right">
-                                    	<div class="filters-toolbar__item">
-                                      		<label for="SortBy" class="hidden">Sort</label>
-                                      		<select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort">
-                                                <option value="title-ascending" selected="selected">Sort</option>
-                                                <option>Best Selling</option>
-                                                <option>Alphabetically, A-Z</option>
-                                                <option>Alphabetically, Z-A</option>
-                                                <option>Price, low to high</option>
-                                                <option>Price, high to low</option>
-                                                <option>Date, new to old</option>
-                                                <option>Date, old to new</option>
-                                      		</select>
-                                      		<input class="collection-header__default-sort" type="hidden" value="manual">
-                                        </div>
-                                    </div>
 
-                                </div>
-                            </div>
-                        </div>
                         <!--End Toolbar-->
                         <div class="grid-products grid--view-items">
                             <div class="row">
                                 <div class="col-6 col-sm-6 col-md-4 col-lg-3 grid-view-item style2 item">
+                                    @foreach ($products as $product)
                                 	<div class="grid-view_image">
                                         <!-- start product image -->
                                         <a href="product-accordion.html" class="grid-view-item__link">
                                             <!-- image -->
-                                            <img class="grid-view-item__image primary blur-up lazyload" data-src="{{asset('landing/assets/images/product-images/product-image1.jpg')}}" src="{{asset('landing/assets/images/product-images/product-image1.jpg')}}" alt="image" title="product">
+                                            <img class="grid-view-item__image primary blur-up lazyload" data-src="{{ $product->product_photo }}" src="{{ $product->product_photo }}" alt="image" title="product">
                                             <!-- End image -->
                                             <!-- Hover image -->
-                                            <img class="grid-view-item__image hover blur-up lazyload" data-src="{{asset('landing/assets/images/product-images/product-image1-1.jpg')}}" src="{{asset('landing/assets/images/product-images/product-image1-1.jpg')}}" alt="image" title="product">
+                                            <img class="grid-view-item__image hover blur-up lazyload" data-src="{{ $product->product_photo2 }}" src="{{ $product->product_photo2 }}" alt="image" title="product">
                                             <!-- End hover image -->
                                             <!-- product label -->
                                             <div class="product-labels rectangular"><span class="lbl on-sale">-16%</span> <span class="lbl pr-label1">new</span></div>
@@ -386,13 +356,13 @@
                                         <div class="product-details hoverDetails text-center mobile">
                                             <!-- product name -->
                                             <div class="product-name">
-                                                <a href="#">Edna Dress</a>
+                                                <a href="#">{{$product->product_title}}</a>
                                             </div>
                                             <!-- End product name -->
                                             <!-- product price -->
                                             <div class="product-price">
-                                                <span class="old-price">$500.00</span>
-                                                <span class="price">$600.00</span>
+                                                <span class="old-price">&#8358;{{$product->product_oldprice}}</span>
+                                                <span class="price">&#8358;{{$product->product_newprice}}</span>
                                             </div>
                                             <!-- End product price -->
                                             <div class="product-review">
@@ -404,28 +374,20 @@
                                             </div>
                                             <!-- product button -->
                                             <div class="button-set">
-                                                <a href="#content_quickview" title="Quick View" class="quick-view-popup quick-view" tabindex="0">
-                                                	<i class="icon anm anm-search-plus-r"></i>
-                                            	</a>
                                                 <!-- Start product button -->
-                                                <form action="#" method="post">
-                                                    <button class="btn btn--secondary cartIcon btn-addto-cart" type="button"><i class="icon anm anm-bag-l"></i></button>
+                                                <form action="{{ route('cart.add') }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="product_id"
+                                                                value="{{ $product->id }}">
+                                                    <button class="btn btn--secondary cartIcon btn-addto-cart" type="submit"><i class="icon anm anm-bag-l"></i></button>
                                                 </form>
-                                                <div class="wishlist-btn">
-                                                    <a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist">
-                                                        <i class="icon anm anm-heart-l"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="compare-btn">
-                                                    <a class="compare add-to-compare" href="compare.html" title="Add to Compare">
-                                                        <i class="icon anm anm-random-r"></i>
-                                                    </a>
-                                                </div>
                                             </div>
                                             <!-- end product button -->
                                         </div>
                                         <!-- End product details -->
                                     </div>
+                                    @endforeach
                                 </div>
                             	</div>
                         </div>
