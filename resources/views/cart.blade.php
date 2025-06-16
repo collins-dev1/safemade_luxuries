@@ -173,7 +173,7 @@
                     <!--Mobile Logo-->
                     @php
                         $cart = session('cart', []);
-                       $cartCount = count($cart);
+                        $cartCount = count($cart);
                         $cartTotal = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $cart));
                     @endphp
 
@@ -338,7 +338,7 @@
                                                 </td>
                                                 <td class="cart__update-wrapper cart-flex-item text-center">
                                                     <div class="cart__qty text-center">
-                                                        <form action="{{ route('cart.update', $id) }}" method="POST"
+                                                        <form action="{{ route('cart_update', $id) }}" method="POST"
                                                             class="d-inline-block">
                                                             @csrf
                                                             <div class="qtyField">
@@ -397,8 +397,24 @@
                         <div class="solid-border">
                             <div class="row">
                                 <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Subtotal</strong></span>
-                                <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span
-                                        class="money">$735.00</span></span>
+                                @if (session('cart'))
+                                    @php
+                                        $cart = session('cart');
+                                        $total = 0;
+                                    @endphp
+                                    @foreach ($cart as $id => $item)
+                                        @php
+                                            $itemTotal = $item['price'] * $item['quantity'];
+                                            $total += $itemTotal;
+                                        @endphp
+                                    @endforeach
+                                    <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span
+                                            class="money">₦{{ number_format($total, 2) }}</span></span>
+                                @else
+                                    <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span
+                                            class="money">Your cart is empty.</span></span>
+                                @endif
+
                             </div>
                             <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
                             <p class="cart_tearm">
@@ -409,8 +425,6 @@
                             </p>
                             <input type="submit" name="checkout" id="cartCheckout"
                                 class="btn btn--small-wide checkout" value="Checkout" disabled="disabled">
-                            <div class="paymnet-img"><img src="assets/images/payment-img.jpg" alt="Payment">
-                            </div>
                         </div>
 
                     </div>
@@ -458,25 +472,13 @@
                                                 class="icon icon-twitter"></i> <span
                                                 class="icon__fallback-text">Twitter</span></a></li>
                                     <li><a class="social-icons__link" href="#" target="_blank"
-                                            title="Belle Multipurpose Bootstrap 4 Template on Pinterest"><i
-                                                class="icon icon-pinterest"></i> <span
-                                                class="icon__fallback-text">Pinterest</span></a></li>
-                                    <li><a class="social-icons__link" href="#" target="_blank"
                                             title="Belle Multipurpose Bootstrap 4 Template on Instagram"><i
                                                 class="icon icon-instagram"></i> <span
                                                 class="icon__fallback-text">Instagram</span></a></li>
                                     <li><a class="social-icons__link" href="#" target="_blank"
-                                            title="Belle Multipurpose Bootstrap 4 Template on Tumblr"><i
-                                                class="icon icon-tumblr-alt"></i> <span
-                                                class="icon__fallback-text">Tumblr</span></a></li>
-                                    <li><a class="social-icons__link" href="#" target="_blank"
                                             title="Belle Multipurpose Bootstrap 4 Template on YouTube"><i
                                                 class="icon icon-youtube"></i> <span
                                                 class="icon__fallback-text">YouTube</span></a></li>
-                                    <li><a class="social-icons__link" href="#" target="_blank"
-                                            title="Belle Multipurpose Bootstrap 4 Template on Vimeo"><i
-                                                class="icon icon-vimeo-alt"></i> <span
-                                                class="icon__fallback-text">Vimeo</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -522,13 +524,13 @@
                                 <h4 class="h4">Contact Us</h4>
                                 <ul class="addressFooter">
                                     <li><i class="icon anm anm-map-marker-al"></i>
-                                        <p>55 Gallaxy Enque,<br>2568 steet, 23568 NY</p>
+                                        <p>Number 45 Prince<br>by Diamond plaza onitsha anambra state</p>
                                     </li>
                                     <li class="phone"><i class="icon anm anm-phone-s"></i>
-                                        <p>(440) 000 000 0000</p>
+                                        <p>+234 903 240 9911</p>
                                     </li>
                                     <li class="email"><i class="icon anm anm-envelope-l"></i>
-                                        <p>sales@yousite.com</p>
+                                        <p>support@yousite.com</p>
                                     </li>
                                 </ul>
                             </div>
@@ -541,7 +543,8 @@
                             <!--Footer Copyright-->
                             <div
                                 class="col-12 col-sm-12 col-md-6 col-lg-6 order-1 order-md-0 order-lg-0 order-sm-1 copyright text-sm-center text-md-left text-lg-left">
-                                <span></span> <a href="templateshub.net">Templates Hub</a>
+                                <span></span> <a href="https://ogcollins.com" target="_blank">Designed by
+                                    ogcollins</a>
                             </div>
                             <!--End Footer Copyright-->
                             <!--Footer Payment Icon-->

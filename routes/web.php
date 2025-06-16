@@ -47,7 +47,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'redirect'])->n
 Route::post('/cart/add', [AdminController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart', [AdminController::class, 'viewCart'])->name('cart.view');
 Route::post('/cart/remove/{id}', [AdminController::class, 'remove'])->name('cart.remove');
-Route::post('/cart/update/{id}', [AdminController::class, 'update'])->name('cart.update');
+Route::post('/cart_update/{id}', [AdminController::class, 'update'])->name('cart_update');
 
 Route::middleware([AdminMiddleware::class])->group(function (){
     Route::get('all_users', [AdminController::class, 'all_users'])->name('all_users');

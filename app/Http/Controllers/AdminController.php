@@ -256,7 +256,12 @@ public function addToCart(Request $request)
 
     session()->put('cart', $cart);
 
-    return redirect()->back()->with('success', 'Product added to cart!');
+    Alert::html(
+           '<h5 style="color:black;">Added Successfully!</h5>',
+        '<p style="color:black;">You have successfully Added this Product to Cart.</p>',
+          'success'
+    )->persistent();
+    return redirect()->back();
 }
 
     public function viewCart()
@@ -293,19 +298,18 @@ public function addToCart(Request $request)
         return redirect()->back();
 }
 
-public function update(Request $request, $id)
+public function update(Request $request)
 {
     $cart = session()->get('cart', []);
-    if (isset($cart[$id])) {
-        $cart[$id]['quantity'] = $request->quantity;
+    $productId = $request->input('product_id');
+    $quantity = (int) $request->input('quantity');
+
+    if (isset($cart[$productId])) {
+        $cart[$productId]['quantity'] = $quantity;
         session()->put('cart', $cart);
     }
-    Alert::html(
-            '<h5 style="color:black;">Updated Successfully!</h5>',
-            '<p style="color:black;">You have successfully Updated this Product</p>',
-            'success'
-        )->persistent();
-        return redirect()->back();
+
+    return redirect()->route('cart.view')->with('success', 'Cart updated.');
 }
 
 }
