@@ -255,4 +255,32 @@ public function edit_a_product(Request $request, $id)
         return redirect()->back();
     }
 
+    public function remove($id)
+{
+    $cart = session()->get('cart', []);
+    unset($cart[$id]);
+    session()->put('cart', $cart);
+   Alert::html(
+            '<h5 style="color:black;">Removed Successfully!</h5>',
+            '<p style="color:black;">You have successfully Removed this Product from Cart.</p>',
+            'success'
+        )->persistent();
+        return redirect()->back();
+}
+
+public function update(Request $request, $id)
+{
+    $cart = session()->get('cart', []);
+    if (isset($cart[$id])) {
+        $cart[$id]['quantity'] = $request->quantity;
+        session()->put('cart', $cart);
+    }
+    Alert::html(
+            '<h5 style="color:black;">Updated Successfully!</h5>',
+            '<p style="color:black;">You have successfully Updated this Product</p>',
+            'success'
+        )->persistent();
+        return redirect()->back();
+}
+
 }
