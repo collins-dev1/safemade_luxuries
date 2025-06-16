@@ -157,7 +157,7 @@
                 <!--Mobile Logo-->
                 @php
                         $cart = session('cart', []);
-                        $cartCount = array_sum(array_column($cart, 'quantity'));
+                        $cartCount = count($cart);
                         $cartTotal = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $cart));
                     @endphp
 

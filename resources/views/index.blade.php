@@ -176,7 +176,7 @@
                     <!--Mobile Logo-->
                     @php
                         $cart = session('cart', []);
-                        $cartCount = array_sum(array_column($cart, 'quantity'));
+                        $cartCount = count($cart);
                         $cartTotal = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $cart));
                     @endphp
 
@@ -354,13 +354,21 @@
                                     <li rel="tab2">Men</li>
                                     <li rel="tab3">Sale</li>
                                 </ul>
+                                <style>
+                                    .product-image img{
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: cover;
+                                    }
+                                </style>
                                 <div class="tab_container">
-                                    @foreach ($products as $product)
+
                                         <div id="tab1" class="tab_content grid-products">
                                             <div class="productSlider">
+                                                @foreach ($products as $product)
                                                 <div class="col-12 item">
                                                     <!-- start product image -->
-                                                    <div class="product-image">
+                                                    <div class="product-image" style="width: 100%; height:300px;">
                                                         <!-- start product image -->
                                                         <a href="short-description.html">
                                                             <!-- image -->
@@ -388,6 +396,9 @@
                                                             @csrf
                                                             <input type="hidden" name="product_id"
                                                                 value="{{ $product->id }}">
+                                                            <input type="number" name="quantity" value="1"
+                                                                min="1" class="form-control"
+                                                                style="width: 80px; margin: 10px auto;">
                                                             <button class="btn btn-addto-cart" type="submit">Add To
                                                                 Cart</button>
                                                         </form>
@@ -421,9 +432,11 @@
                                                     </div>
                                                     <!-- End product details -->
                                                 </div>
+                                                 @endforeach
+
                                             </div>
                                         </div>
-                                    @endforeach
+
                                     <div id="tab2" class="tab_content grid-products">
                                         <div class="productSlider">
                                             <div class="col-12 item">
@@ -672,9 +685,22 @@
                         </div>
                     </div>
                     <div class="grid-products">
+                        <style>
+                            .grid-view-item__link{
+                                width: 100%;
+                                height: 400px;
+                            }
+
+                            .grid-view-item__link img{
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        </style>
                         <div class="row">
+                            @foreach ($products as $product)
                             <div class="col-6 col-sm-6 col-md-4 col-lg-4 item grid-view-item style2">
-                                @foreach ($products as $product)
+
                                     <div class="grid-view_image">
                                         <!-- start product image -->
                                         <a href="product-accordion.html" class="grid-view-item__link">
@@ -717,8 +743,9 @@
                                         <!-- End Variant -->
                                         <!-- End product details -->
                                     </div>
-                                @endforeach
+
                             </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

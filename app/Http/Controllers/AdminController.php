@@ -206,32 +206,57 @@ public function edit_a_product(Request $request, $id)
     }
 }
 
-    public function addToCart(Request $request)
+//     public function addToCart(Request $request)
+// {
+//     $productId = $request->input('product_id');
+//     $product = products::findOrFail($productId);
+
+//     $cart = session()->get('cart', []);
+
+//     if (isset($cart[$productId])) {
+//         $cart[$productId]['quantity']++;
+//     } else {
+//         $cart[$productId] = [
+//             'name' => $product->product_title,
+//             'price' => $product->product_newprice,
+//             'quantity' => 1,
+//             'photo' => $product->product_photo,
+//         ];
+//     }
+
+//     session()->put('cart', $cart);
+
+//     Alert::html(
+//             '<h5 style="color:black;">Added Successfully!</h5>',
+//           '<p style="color:black;">You have successfully Added this Product to Cart.</p>',
+//           'success'
+//       )->persistent();
+//       return redirect()->back();
+// }
+
+public function addToCart(Request $request)
 {
-    $productId = $request->input('product_id');
-    $product = products::findOrFail($productId);
+    $product = products::findOrFail($request->input('product_id'));
+    $quantity = $request->input('quantity', 1); // default to 1 if not passed
 
     $cart = session()->get('cart', []);
 
-    if (isset($cart[$productId])) {
-        $cart[$productId]['quantity']++;
+    // If product is already in cart
+    if (isset($cart[$product->id])) {
+        $cart[$product->id]['quantity'] += $quantity;
     } else {
-        $cart[$productId] = [
+        // Add new product
+        $cart[$product->id] = [
             'name' => $product->product_title,
+            'quantity' => $quantity,
             'price' => $product->product_newprice,
-            'quantity' => 1,
-            'photo' => $product->product_photo,
+            'photo' => $product->product_photo
         ];
     }
 
     session()->put('cart', $cart);
 
-    Alert::html(
-            '<h5 style="color:black;">Added Successfully!</h5>',
-          '<p style="color:black;">You have successfully Added this Product to Cart.</p>',
-          'success'
-      )->persistent();
-      return redirect()->back();
+    return redirect()->back()->with('success', 'Product added to cart!');
 }
 
     public function viewCart()
