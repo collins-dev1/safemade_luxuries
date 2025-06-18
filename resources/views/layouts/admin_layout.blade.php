@@ -192,14 +192,14 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
-                                    data-target="#submenu-4" aria-controls="submenu-4"><i class="fa fa-fw fa-images"></i>Photo Gallery</a>
+                                    data-target="#submenu-4" aria-controls="submenu-4"><i class="fa fa-fw fa-file-alt"></i>Blog</a>
                                 <div id="submenu-4" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Add Photo</a>
+                                            <a class="nav-link" href="">Add Blog</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Manage Photo</a>
+                                            <a class="nav-link" href="">Manage Blog</a>
                                         </li>
                                     </ul>
                                 </div>

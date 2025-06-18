@@ -60,6 +60,8 @@ Route::middleware([AdminMiddleware::class])->group(function (){
     Route::get('/delete_product/{id}', [AdminController::class, 'delete_product'])->name('delete_product');
     Route::get('/edit_product/{id}', [AdminController::class, 'edit_product'])->name('edit_product');
     Route::post('/product/update/{id}', [AdminController::class, 'edit_a_product'])->name('product.update');
+    Route::get('/add_blog', [AdminController::class, 'add_blog'])->name('add_blog');
+    Route::get('/manage_blog', [AdminController::class, 'manage_blog'])->name('manage_blog');
 
 });
 

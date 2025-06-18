@@ -312,4 +312,5 @@ public function update(Request $request)
     return redirect()->route('cart.view')->with('success', 'Cart updated.');
 }
 
+
 }
