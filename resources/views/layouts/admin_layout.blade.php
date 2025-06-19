@@ -196,10 +196,10 @@
                                 <div id="submenu-4" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Add Blog</a>
+                                            <a class="nav-link" href="{{route('add_blog')}}">Add Blog</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Manage Blog</a>
+                                            <a class="nav-link" href="{{route('manage_blog')}}">Manage Blog</a>
                                         </li>
                                     </ul>
                                 </div>

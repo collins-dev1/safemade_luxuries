@@ -62,6 +62,7 @@ Route::middleware([AdminMiddleware::class])->group(function (){
     Route::post('/product/update/{id}', [AdminController::class, 'edit_a_product'])->name('product.update');
     Route::get('/add_blog', [AdminController::class, 'add_blog'])->name('add_blog');
     Route::get('/manage_blog', [AdminController::class, 'manage_blog'])->name('manage_blog');
+    Route::post('/add_a_blog', [AdminController::class, 'add_a_blog'])->name('add_a_blog');
 
 });
 

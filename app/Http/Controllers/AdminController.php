@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\blog;
 use App\Models\products;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -312,5 +313,61 @@ public function update(Request $request)
     return redirect()->route('cart.view')->with('success', 'Cart updated.');
 }
 
+public function add_blog(){
+    return view('admin.add_blog');
+}
 
+public function manage_blog(){
+    return view('admin.manage_blog');
+}
+
+public function add_a_blog(Request $request)
+{
+    \Log::info('Form submission attempt', $request->all());
+
+    try {
+        $validated = $request->validate([
+            'blog_title' => 'required|string|max:255',
+            'blog_description' => 'required|string',
+            'blog_photo' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
+        ]);
+
+        // Ensure directory exists
+        $storagePath = storage_path('app/public/blog_photos');
+        if (!File::exists($storagePath)) {
+            File::makeDirectory($storagePath, 0755, true);
+        }
+
+        // Store blog_photo
+        if (!$request->file('blog_photo')->isValid()) {
+            throw new \Exception('Primary photo is not valid');
+        }
+        $path1 = $request->file('blog_photo')->store('blog_photos', 'public');
+
+        // Create product
+        $blog = blog::create([
+            'blog_title' => $validated['blog_title'],
+            'blog_description' => $validated['blog_description'],
+            'blog_photo' => Storage::url($path1),
+        ]);
+
+        \Log::info('Blog created successfully', $blog->toArray());
+
+        Alert::success('Success!', 'Blog created successfully');
+        return back();
+
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        \Log::error('Validation failed', ['errors' => $e->errors()]);
+        return back()->withErrors($e->errors());
+
+    } catch (\Exception $e) {
+        \Log::error('blog creation failed', [
+            'error' => $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ]);
+
+        Alert::error('Error', 'Failed to create blog: ' . $e->getMessage());
+        return back();
+    }
+}
 }
