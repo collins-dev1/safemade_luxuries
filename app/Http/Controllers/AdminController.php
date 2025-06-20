@@ -318,7 +318,8 @@ public function add_blog(){
 }
 
 public function manage_blog(){
-    return view('admin.manage_blog');
+    $blogs = blog::all();
+    return view('admin.manage_blog', compact('blogs'));
 }
 
 public function add_a_blog(Request $request)
