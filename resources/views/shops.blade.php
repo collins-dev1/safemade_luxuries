@@ -116,34 +116,16 @@
                                             class="anm anm-angle-down-l"></i></a>
 
                                 </li>
-                                <li class="lvl1 parent megamenu"><a href="#">Products <i
-                                            class="anm anm-angle-down-l"></i></a>
-                                    <div class="megamenu style2">
-                                        <ul class="grid mmWrapper">
-                                            <li class="grid__item one-whole">
-                                                <ul class="grid">
-                                                    <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#"
-                                                            class="site-nav lvl-1">Product Page</a>
-                                                        <ul class="subLinks">
-                                                            <li class="lvl-2"><a href="product-layout-1.html"
-                                                                    class="site-nav lvl-2">Cloths</a></li>
-                                                            <li class="lvl-2"><a href="product-layout-2.html"
-                                                                    class="site-nav lvl-2">Shoes</a></li>
-                                                            <li class="lvl-2"><a href="product-layout-3.html"
-                                                                    class="site-nav lvl-2">Jewellery</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="grid__item large-up--one-whole imageCol"><a href="#"><img
-                                                        src="assets/images/megamenu-bg2.jpg" alt=""></a></li>
-                                        </ul>
-                                    </div>
-                                </li>
                                 <li class="lvl1 parent dropdown"><a href="#">Pages <i
                                             class="anm anm-angle-down-l"></i></a>
                                     <ul class="dropdown">
-                                        <li><a href="{{ route('checkout') }}" class="site-nav">Checkout</a></li>
+                                        @auth
+                                            @if (Auth::user()->usertype == 0)
+                                                <li><a href="{{ route('cart.view') }}" class="site-nav">Checkout</a></li>
+                                            @endif
+                                        @else
+                                            <li></li>
+                                        @endauth
                                         <li><a href="{{ route('aboutus') }}" class="site-nav">About Us <span
                                                     class="lbl nm_label1">New</span> </a></li>
                                         <li><a href="{{ route('contactus') }}" class="site-nav">Contact Us</a></li>
@@ -258,20 +240,15 @@
                 </li>
                 <li class="lvl1 parent megamenu"><a href="{{ route('shops') }}">Shop</a>
                 </li>
-                <li class="lvl1 parent megamenu"><a href="">Products <i class="anm anm-plus-l"></i></a>
-                    <ul>
-                        <li><a href="" class="site-nav">Product Page<i class="anm anm-plus-l"></i></a>
-                            <ul>
-                                <li><a href="product-layout-1.html" class="site-nav">Shoes</a></li>
-                                <li><a href="product-layout-2.html" class="site-nav">Cloths</a></li>
-                                <li><a href="product-layout-3.html" class="site-nav">Jewellery</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
                 <li class="lvl1 parent megamenu"><a href="">Pages <i class="anm anm-plus-l"></i></a>
                     <ul>
-                        <li><a href="{{ route('checkout') }}" class="site-nav">Checkout</a></li>
+                        @auth
+                            @if (Auth::user()->usertype == 0)
+                                <li><a href="{{ route('cart.view') }}" class="site-nav">Checkout</a></li>
+                            @endif
+                        @else
+                            <li></li>
+                        @endauth
                         <li><a href="{{ route('aboutus') }}" class="site-nav">About Us<span
                                     class="lbl nm_label1">New</span></a></li>
                         <li><a href="{{ route('contactus') }}" class="site-nav">Contact Us</a></li>

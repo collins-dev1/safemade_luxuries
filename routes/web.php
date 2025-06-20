@@ -3,13 +3,15 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\UserMiddleware;
+use App\Models\blog;
 use App\Models\products;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $products = products::orderBy('created_at', 'desc')->limit(6)->get();
-    return view('index', compact('products'));
+    $blogs = blog::orderBy('created_at', 'desc')->limit(2)->get();
+    return view('index', compact('products', 'blogs'));
 });
 
 Route::get('/shops', function(){
@@ -34,12 +36,21 @@ Route::get('/comingsoon', function(){
 })->name('comingsoon');
 
 Route::get('blog', function(){
-    return view('blog');
+    $blogs = blog::all();
+    return view('blog', compact('blogs'));
 })->name('blog');
 
 Route::get('/checkout', function(){
     return view('checkout');
 })->name('checkout');
+
+Route::get('/blog_content/{id}', function($id){
+    $blog = blog::find($id);
+    $blogs = blog::orderBy('created_at', 'desc')->limit(3)->get();
+    $products = products::orderBy('created_at', 'desc')->limit(3)->get();
+    return view('blog_content', compact('blog', 'blogs', 'products'));
+})->name('blog_content');
+
 
 Auth::routes();
 

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
-<!-- belle/faqs.html   11 Nov 2019 12:44:40 GMT -->
+<!-- belle/blog-article.html   11 Nov 2019 12:47:01 GMT -->
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>FAQs | Safemade Luxuries</title>
+    <title>Blog Article | Safemade Luxuries</title>
     <meta name="description" content="description">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{{ asset('landing/assets/css/responsive.css') }}">
 </head>
 
-<body class="page-template belle">
+<body class="template-blog belle">
     <div class="pageWrapper">
         <!--Search Form Drawer-->
         <div class="search">
@@ -142,7 +142,6 @@
                         </nav>
                         <!--End Desktop Menu-->
                     </div>
-                    @include('sweetalert::alert')
                     <!--Mobile Logo-->
                     <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
                         <div class="logo">
@@ -152,6 +151,7 @@
                             </a>
                         </div>
                     </div>
+                    @include('sweetalert::alert')
                     <!--Mobile Logo-->
                     @php
                         $cart = session('cart', []);
@@ -266,76 +266,173 @@
         <!--Body Content-->
         <div id="page-content">
             <!--Page Title-->
-            <div class="page section-header text-center">
-                <div class="page-title" style="padding: 8rem;">
-                    <div class="wrapper">
-                        <h1 class="page-width">FAQs</h1>
+            <div class="page section-header text-center mb-0">
+                <div class="page-title">
+                    <div class="wrapper" style="padding: 8rem;">
+                        <h1 class="page-width">Blog Article</h1>
                     </div>
+                </div>
+            </div>
+            <!--End Page Title-->
+            <div class="bredcrumbWrap">
+                <div class="container breadcrumbs">
+                    <a href="{{url('/')}}" title="Back to the home page">Home</a><span aria-hidden="true">›</span>
+                    <a href="{{route('blog')}}" title="Back to News">News</a><span
+                        aria-hidden="true">›</span><span>Blog Article</span>
                 </div>
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
-                        <div id="accordionExample">
-                            <h2 class="title h2">Payment and Returns</h2>
-                            <div class="faq-body">
-                                <h4 class="panel-title" data-toggle="collapse" data-target="#collapseOne"
-                                    aria-expanded="false" aria-controls="collapseOne">What payment methods do you
-                                    accept?</h4>
-                                <div id="collapseOne" class="collapse panel-content" data-parent="#accordionExample">
-                                    We accept major credit/debit cards, bank transfers, PayPal, and mobile payment
-                                    options (depending on your country).</div>
+                    <!--Main Content-->
+                    <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
+                        <div class="blog--list-view">
+                            <style>
+                                .article_featured-image{
+                                    width: 100%;
+                                    height: 400px;
+                                }
+
+                                .article_featured-image img{
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: cover;
+                                }
+                            </style>
+                            <div class="article">
+                                <!-- Article Image -->
+                                <a class="article_featured-image"><img class="blur-up lazyload"
+                                        data-src="{{$blog->blog_photo}}"
+                                        src="{{$blog->blog_photo}}"
+                                        alt="It's all about how you wear"></a>
+                                <h1>{{$blog->blog_title}}</h1>
+                                <ul class="publish-detail">
+                                    <li><i class="anm anm-user-al" aria-hidden="true"></i> User</li>
+                                    <li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">{{$blog->created_at}}</time></li>
+                                    <li>
+                                        <ul class="inline-list">
+                                            <li><i class="icon anm anm-comments-l"></i> <a href="#"> 0
+                                                    comments</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <div class="rte">
+                                    <p>
+                                        {{$blog->blog_description}}
+                                    </p>
+                                </div>
                             </div>
-                            <div class="faq-body">
-                                <h4 class="panel-title" data-toggle="collapse" data-target="#collapseTwo"
-                                    aria-expanded="false" aria-controls="collapseTwo">Is my payment information
-                                    secure?</h4>
-                                <div id="collapseTwo" class="collapse panel-content">Absolutely. Our website uses SSL
-                                    encryption and secure payment gateways to ensure your data is always safe.</div>
-                            </div>
-                            <div class="faq-body">
-                                <h4 class="panel-title" data-toggle="collapse" data-target="#collapseThree"
-                                    aria-expanded="false" aria-controls="collapseThree">Can I return or exchange a
-                                    product?</h4>
-                                <div class="panel-content collapse" id="collapseThree">Yes, we accept returns and
-                                    exchanges within 7–14 days of delivery for unused, undamaged items. Please see our
-                                    Return Policy for full details.</div>
-                            </div>
-                            <div class="faq-body">
-                                <h4 class="panel-title" data-toggle="collapse" data-target="#collapseSeven"
-                                    aria-expanded="false" aria-controls="collapseSeven">What should I do if I received
-                                    a wrong or damaged item?</h4>
-                                <div class="panel-content collapse" id="collapseSeven">We're sorry! Please contact us
-                                    within 48 hours of delivery with a photo of the item, and we’ll replace it at no
-                                    extra cost.</div>
-                            </div>
-                            <h2 class="title h2">Other Resources</h2>
-                            <div class="faq-body">
-                                <h4 class="panel-title" data-toggle="collapse" data-target="#collapseFour"
-                                    aria-expanded="false" aria-controls="collapseFour"> What if an item is out of
-                                    stock?</h4>
-                                <div class="panel-content collapse" id="collapseFour"> If an item is out of stock, you
-                                    can click “Notify Me” to get an alert when it’s back. You can also contact customer
-                                    service for similar suggestions.</div>
-                            </div>
-                            <div class="faq-body">
-                                <h4 class="panel-title" data-toggle="collapse" data-target="#collapseFive"
-                                    aria-expanded="false" aria-controls="collapseFive">Do you restock popular items?
-                                </h4>
-                                <div class="panel-content collapse" id="collapseFive">Yes, we frequently restock
-                                    high-demand items. Follow us on social media or subscribe to our newsletter for
-                                    updates.</div>
-                            </div>
-                            <div class="faq-body">
-                                <h4 class="panel-title" data-toggle="collapse" data-target="#collapseSix"
-                                    aria-expanded="false" aria-controls="collapseSix">How can I contact customer
-                                    service?</h4>
-                                <div class="panel-content collapse" id="collapseSix"> You can reach us via our Contact
-                                    Us page, live chat, or email at support@yourstore.com. Our support hours are
-                                    Monday–Friday, 8 AM–6 PM.</div>
+                            <div class="formFeilds contact-form form-vertical">
+                                <form method="post" action="#" id="comment_form" accept-charset="UTF-8"
+                                    class="comment-form">
+                                    <h2>Leave a comment</h2>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                            <div class="form-group">
+                                                <input type="text" id="ContactFormName" name="contact[name]"
+                                                    placeholder="Name" value="" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                            <div class="form-group">
+                                                <input type="email" id="ContactFormEmail" name="contact[email]"
+                                                    placeholder="Email" value="" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <textarea required="" rows="10" id="ContactFormMessage" name="contact[body]" placeholder="Your Message"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <p class="fine-print">Please note, comments must be approved before they
+                                                are published</p>
+                                            <input type="submit" class="btn" value="Send Message">
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+                    <!--End Main Content-->
+                    <!--Sidebar-->
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar">
+                        <div class="sidebar_tags">
+                            <div class="sidebar_widget">
+                                <div class="widget-title">
+                                    <h2>Recent Posts</h2>
+                                </div>
+                                <div class="widget-content">
+                                    <div class="list list-sidebar-products">
+                                        <div class="grid">
+                                            @foreach ($blogs as $blog)
+                                            <div class="grid__item">
+                                                <div class="mini-list-item">
+                                                    <div class="mini-view_image">
+                                                        <a class="grid-view-item__link">
+                                                            <img class="grid-view-item__image blur-up lazyload"
+                                                                data-src="{{$blog->blog_photo}}"
+                                                                src="{{$blog->blog_photo}}"
+                                                                alt="" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="details"> <a class="grid-view-item__title">
+                                                        {{$blog->blog_title}}
+                                                    </a>
+                                                        <div class="grid-view-item__meta"><span class="article__date">
+                                                                <time datetime="2017-05-02T14:33:00Z">
+                                                                    {{$blog->created_at}}</time></span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sidebar_widget static-banner">
+                                <img src="assets/images/side-banner-2.jpg" alt="">
+                            </div>
+                            <div class="sidebar_widget">
+                                <div class="widget-title">
+                                    <h2>Trending Now</h2>
+                                </div>
+                                <div class="widget-content">
+                                    <div class="list list-sidebar-products">
+                                        <div class="grid">
+                                            @foreach ($products as $product)
+                                            <div class="grid__item">
+                                                <div class="mini-list-item">
+                                                    <div class="mini-view_image">
+                                                        <a class="grid-view-item__link">
+                                                            <img class="grid-view-item__image blur-up lazyload"
+                                                                data-src="{{$product->product_photo}}"
+                                                                src="{{$product->product_photo}}"
+                                                                alt="" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="details"> <a class="grid-view-item__title">
+                                                        {{$product->product_title}}
+                                                    </a>
+                                                        <div class="grid-view-item__meta"><span
+                                                                class="product-price__price"><span
+                                                                    class="money">
+                                                                    &#8358;{{ $product->product_newprice }}
+                                                                </span></span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Sidebar-->
                 </div>
             </div>
 
@@ -360,8 +457,8 @@
                                                 name="EMAIL" value="" placeholder="Email address"
                                                 required="">
                                             <span class="input-group__btn">
-                                                <button type="submit" class="btn newsletter__submit" name="commit"
-                                                    id="Subscribe"><span
+                                                <button type="submit" class="btn newsletter__submit"
+                                                    name="commit" id="Subscribe"><span
                                                         class="newsletter__submit-text--large">Subscribe</span></button>
                                             </span>
                                         </div>
@@ -369,7 +466,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-5 d-flex justify-content-end align-items-center">
+                        <div
+                            class="col-12 col-sm-12 col-md-12 col-lg-5 d-flex justify-content-end align-items-center">
                             <div class="footer-social">
                                 <ul class="list--inline site-footer__social-icons social-icons">
                                     <li><a class="social-icons__link" href="#" target="_blank"
@@ -380,13 +478,25 @@
                                                 class="icon icon-twitter"></i> <span
                                                 class="icon__fallback-text">Twitter</span></a></li>
                                     <li><a class="social-icons__link" href="#" target="_blank"
+                                            title="Belle Multipurpose Bootstrap 4 Template on Pinterest"><i
+                                                class="icon icon-pinterest"></i> <span
+                                                class="icon__fallback-text">Pinterest</span></a></li>
+                                    <li><a class="social-icons__link" href="#" target="_blank"
                                             title="Belle Multipurpose Bootstrap 4 Template on Instagram"><i
                                                 class="icon icon-instagram"></i> <span
                                                 class="icon__fallback-text">Instagram</span></a></li>
                                     <li><a class="social-icons__link" href="#" target="_blank"
+                                            title="Belle Multipurpose Bootstrap 4 Template on Tumblr"><i
+                                                class="icon icon-tumblr-alt"></i> <span
+                                                class="icon__fallback-text">Tumblr</span></a></li>
+                                    <li><a class="social-icons__link" href="#" target="_blank"
                                             title="Belle Multipurpose Bootstrap 4 Template on YouTube"><i
                                                 class="icon icon-youtube"></i> <span
                                                 class="icon__fallback-text">YouTube</span></a></li>
+                                    <li><a class="social-icons__link" href="#" target="_blank"
+                                            title="Belle Multipurpose Bootstrap 4 Template on Vimeo"><i
+                                                class="icon icon-vimeo-alt"></i> <span
+                                                class="icon__fallback-text">Vimeo</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -432,13 +542,13 @@
                                 <h4 class="h4">Contact Us</h4>
                                 <ul class="addressFooter">
                                     <li><i class="icon anm anm-map-marker-al"></i>
-                                        <p>Number 45 Prince<br>by Diamond plaza onitsha anambra state</p>
+                                        <p>55 Gallaxy Enque,<br>2568 steet, 23568 NY</p>
                                     </li>
                                     <li class="phone"><i class="icon anm anm-phone-s"></i>
-                                        <p>+234 903 240 9911</p>
+                                        <p>(440) 000 000 0000</p>
                                     </li>
                                     <li class="email"><i class="icon anm anm-envelope-l"></i>
-                                        <p>support@yousite.com</p>
+                                        <p>sales@yousite.com</p>
                                     </li>
                                 </ul>
                             </div>
@@ -451,8 +561,7 @@
                             <!--Footer Copyright-->
                             <div
                                 class="col-12 col-sm-12 col-md-6 col-lg-6 order-1 order-md-0 order-lg-0 order-sm-1 copyright text-sm-center text-md-left text-lg-left">
-                                <span></span> <a href="https://ogcollins.com" target="_blank">Designed by
-                                    ogcollins</a></div>
+                                <span></span> <a href="templateshub.net">Templates Hub</a></div>
                             <!--End Footer Copyright-->
                             <!--Footer Payment Icon-->
                             <div
@@ -491,6 +600,6 @@
     </div>
 </body>
 
-<!-- belle/faqs.html   11 Nov 2019 12:44:40 GMT -->
+<!-- belle/blog-article.html   11 Nov 2019 12:47:01 GMT -->
 
 </html>

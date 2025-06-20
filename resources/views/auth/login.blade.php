@@ -58,184 +58,180 @@
     <!--End Top Header-->
     <!--Header-->
     <div class="header-wrap classicHeader animated d-flex">
-    	<div class="container-fluid">
-            <div class="row align-items-center">
-            	<!--Desktop Logo-->
-                <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
-                    <a href="{{url('/')}}">
-                    	<img src="{{asset('landing/assets/images/logo/mainSelfmadeLuxuries.png')}}" alt="Selfmade Luxuries" title="Selfmade Luxuries" />
-                    </a>
-                </div>
-                <!--End Desktop Logo-->
-                <div class="col-2 col-sm-3 col-md-3 col-lg-8">
-                	<div class="d-block d-lg-none">
-                        <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open">
-                        	<i class="icon anm anm-times-l"></i>
-                            <i class="anm anm-bars-r"></i>
-                        </button>
-                    </div>
-                	<!--Desktop Menu-->
-                	<nav class="grid__item" id="AccessibleNav"><!-- for mobile -->
-                        <ul id="siteNav" class="site-nav medium center hidearrow">
-                            <li class="lvl1 parent megamenu"><a href="{{url('/')}}">Home <i class="anm anm-angle-down-l"></i></a>
-
-                            </li>
-                            <li class="lvl1 parent megamenu"><a href="{{route('shops')}}">Shop <i class="anm anm-angle-down-l"></i></a>
-
-                            </li>
-                        <li class="lvl1 parent megamenu"><a href="#">Products <i class="anm anm-angle-down-l"></i></a>
-                        	<div class="megamenu style2">
-                                <ul class="grid mmWrapper">
-                                    <li class="grid__item one-whole">
-                                        <ul class="grid">
-                                            <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#" class="site-nav lvl-1">Product Page</a>
-                                                <ul class="subLinks">
-                                                    <li class="lvl-2"><a href="product-layout-1.html" class="site-nav lvl-2">Cloths</a></li>
-                                                    <li class="lvl-2"><a href="product-layout-2.html" class="site-nav lvl-2">Shoes</a></li>
-                                                    <li class="lvl-2"><a href="product-layout-3.html" class="site-nav lvl-2">Jewellery</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                  	<li class="grid__item large-up--one-whole imageCol"><a href="#"><img src="assets/images/megamenu-bg2.jpg" alt=""></a></li>
-                                </ul>
-                          	</div>
-                        </li>
-                        <li class="lvl1 parent dropdown"><a href="#">Pages <i class="anm anm-angle-down-l"></i></a>
-                          <ul class="dropdown">
-							<li><a href="{{route('checkout')}}" class="site-nav">Checkout</a></li>
-                            <li><a href="{{route('aboutus')}}" class="site-nav">About Us <span class="lbl nm_label1">New</span> </a></li>
-                            <li><a href="{{route('contactus')}}" class="site-nav">Contact Us</a></li>
-                            <li><a href="{{route('faq')}}" class="site-nav">FAQs</a></li>
-                            <li><a href="{{route('comingsoon')}}" class="site-nav">Coming soon <span class="lbl nm_label1">New</span> </a></li>
-                          </ul>
-                        </li>
-                        <li class="lvl1 parent dropdown"><a href="{{route('blog')}}">Blog <i class="anm anm-angle-down-l"></i></a>
-
-                        </li>
-                      </ul>
-                    </nav>
-                    <!--End Desktop Menu-->
-                </div>
-                <!--Mobile Logo-->
-                <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
-                	<div class="logo">
-                        <a href="{{url('/')}}">
-                            <img src="{{asset('landing/assets/images/logo/mainSelfmadeLuxuries.png')}}" alt="Selfmade Luxuries" title="Selfmade Luxuries" />
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <!--Desktop Logo-->
+                    <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
+                        <a href="{{ url('/') }}">
+                            <img src="{{ asset('landing/assets/images/logo/mainSelfmadeLuxuries.png') }}"
+                                alt="Selfmade Luxuries" title="Selfmade Luxuries" />
                         </a>
                     </div>
-                </div>
-                <!--Mobile Logo-->
-                <div class="col-4 col-sm-3 col-md-3 col-lg-2">
-                	<div class="site-cart">
-                    	<a href="#;" class="site-header__cart" title="Cart">
-                        	<i class="icon anm anm-bag-l"></i>
-                            <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">2</span>
-                        </a>
-                        <!--Minicart Popup-->
-                        <div id="header-cart" class="block block-cart">
-                        	<ul class="mini-products-list">
-                                <li class="item">
-                                	<a class="product-image" href="#">
-                                    	<img src="assets/images/product-images/cape-dress-1.jpg" alt="3/4 Sleeve Kimono Dress" title="" />
-                                    </a>
-                                    <div class="product-details">
-                                    	<a href="#" class="remove"><i class="anm anm-times-l" aria-hidden="true"></i></a>
-                                        <a href="#" class="edit-i remove"><i class="anm anm-edit" aria-hidden="true"></i></a>
-                                        <a class="pName" href="cart.html">Sleeve Kimono Dress</a>
-                                        <div class="variant-cart">Black / XL</div>
-                                        <div class="wrapQtyBtn">
-                                            <div class="qtyField">
-                                            	<span class="label">Qty:</span>
-                                                <a class="qtyBtn minus" href="javascript:void(0);"><i class="fa anm anm-minus-r" aria-hidden="true"></i></a>
-                                                <input type="text" id="Quantity" name="quantity" value="1" class="product-form__input qty">
-                                                <a class="qtyBtn plus" href="javascript:void(0);"><i class="fa anm anm-plus-r" aria-hidden="true"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="priceRow">
-                                        	<div class="product-price">
-                                            	<span class="money">$59.00</span>
-                                            </div>
-                                         </div>
-									</div>
+                    <!--End Desktop Logo-->
+                    <div class="col-2 col-sm-3 col-md-3 col-lg-8">
+                        <div class="d-block d-lg-none">
+                            <button type="button"
+                                class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open">
+                                <i class="icon anm anm-times-l"></i>
+                                <i class="anm anm-bars-r"></i>
+                            </button>
+                        </div>
+                        <!--Desktop Menu-->
+                        <nav class="grid__item" id="AccessibleNav"><!-- for mobile -->
+                            <ul id="siteNav" class="site-nav medium center hidearrow">
+                                <li class="lvl1 parent megamenu"><a href="{{ url('/') }}">Home <i
+                                            class="anm anm-angle-down-l"></i></a>
+
                                 </li>
-                                <li class="item">
-                                	<a class="product-image" href="#">
-                                    	<img src="assets/images/product-images/cape-dress-2.jpg" alt="Elastic Waist Dress - Black / Small" title="" />
-                                    </a>
-                                    <div class="product-details">
-                                    	<a href="#" class="remove"><i class="anm anm-times-l" aria-hidden="true"></i></a>
-                                        <a href="#" class="edit-i remove"><i class="anm anm-edit" aria-hidden="true"></i></a>
-                                        <a class="pName" href="cart.html">Elastic Waist Dress</a>
-                                        <div class="variant-cart">Gray / XXL</div>
-                                        <div class="wrapQtyBtn">
-                                            <div class="qtyField">
-                                            	<span class="label">Qty:</span>
-                                                <a class="qtyBtn minus" href="javascript:void(0);"><i class="fa anm anm-minus-r" aria-hidden="true"></i></a>
-                                                <input type="text" id="Quantity" name="quantity" value="1" class="product-form__input qty">
-                                                <a class="qtyBtn plus" href="javascript:void(0);"><i class="fa anm anm-plus-r" aria-hidden="true"></i></a>
-                                            </div>
-                                        </div>
-                                       	<div class="priceRow">
-                                            <div class="product-price">
-                                                <span class="money">$99.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <li class="lvl1 parent megamenu"><a href="{{ route('shops') }}">Shop <i
+                                            class="anm anm-angle-down-l"></i></a>
+
+                                </li>
+                                <li class="lvl1 parent dropdown"><a href="#">Pages <i
+                                            class="anm anm-angle-down-l"></i></a>
+                                    <ul class="dropdown">
+                                        @auth
+                                            @if (Auth::user()->usertype == 0)
+                                                <li><a href="{{ route('cart.view') }}" class="site-nav">Checkout</a></li>
+                                            @endif
+                                        @else
+                                            <li></li>
+                                        @endauth
+                                        <li><a href="{{ route('aboutus') }}" class="site-nav">About Us <span
+                                                    class="lbl nm_label1">New</span> </a></li>
+                                        <li><a href="{{ route('contactus') }}" class="site-nav">Contact Us</a></li>
+                                        <li><a href="{{ route('faq') }}" class="site-nav">FAQs</a></li>
+                                        <li><a href="{{ route('comingsoon') }}" class="site-nav">Coming soon <span
+                                                    class="lbl nm_label1">New</span> </a></li>
+                                    </ul>
+                                </li>
+                                <li class="lvl1 parent dropdown"><a href="{{ route('blog') }}">Blog <i
+                                            class="anm anm-angle-down-l"></i></a>
+
                                 </li>
                             </ul>
-                            <div class="total">
-                            	<div class="total-in">
-                                	<span class="label">Cart Subtotal:</span><span class="product-price"><span class="money">$748.00</span></span>
-                                </div>
-                                 <div class="buttonSet text-center">
-                                    <a href="cart.html" class="btn btn-secondary btn--small">View Cart</a>
-                                    <a href="checkout.html" class="btn btn-secondary btn--small">Checkout</a>
+                        </nav>
+                        <!--End Desktop Menu-->
+                    </div>
+                    <!--Mobile Logo-->
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
+                        <div class="logo">
+                            <a href="{{ url('/') }}">
+                                <img src="{{ asset('landing/assets/images/logo/mainSelfmadeLuxuries.png') }}"
+                                    alt="Selfmade Luxuries" title="Selfmade Luxuries" />
+                            </a>
+                        </div>
+                    </div>
+                    @include('sweetalert::alert')
+                    <!--Mobile Logo-->
+                    @php
+                        $cart = session('cart', []);
+                        $cartCount = count($cart);
+                        $cartTotal = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $cart));
+                    @endphp
+
+                    <div class="col-4 col-sm-3 col-md-3 col-lg-2">
+                        <div class="site-cart">
+                            <a href="{{ route('cart.view') }}" class="site-header__cart" title="Cart">
+                                <i class="icon anm anm-bag-l"></i>
+                                <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">
+                                    {{ $cartCount }}
+                                </span>
+                            </a>
+
+                            <!--Minicart Popup-->
+                            <div id="header-cart" class="block block-cart">
+                                <ul class="mini-products-list">
+                                    @forelse($cart as $id => $item)
+                                        <li class="item">
+                                            <a class="product-image" href="#">
+                                                <img src="{{ $item['photo'] }}" alt="{{ $item['name'] }}"
+                                                    title="" />
+                                            </a>
+                                            <div class="product-details">
+                                                <form action="{{ route('cart.remove', $id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="remove"><i class="anm anm-times-l"
+                                                            aria-hidden="true"></i></button>
+                                                </form>
+
+                                                <a class="pName" href="#">{{ $item['name'] }}</a>
+                                                <div class="wrapQtyBtn">
+                                                    <div class="qtyField">
+                                                        <span class="label">Qty:</span>
+                                                        <input type="text" value="{{ $item['quantity'] }}"
+                                                            class="product-form__input qty" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="priceRow">
+                                                    <div class="product-price">
+                                                        <span
+                                                            class="money">₦{{ number_format($item['price'], 2) }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @empty
+                                        <li class="item">Your cart is empty.</li>
+                                    @endforelse
+                                </ul>
+
+                                <div class="total">
+                                    <div class="total-in">
+                                        <span class="label">Cart Subtotal:</span>
+                                        <span class="product-price">
+                                            <span class="money">₦{{ number_format($cartTotal, 2) }}</span>
+                                        </span>
+                                    </div>
+                                    <div class="buttonSet text-center">
+                                        <a href="{{ route('cart.view') }}" class="btn btn-secondary btn--small">View
+                                            Cart</a>
+                                        <a href="{{ route('cart.view') }}"
+                                            class="btn btn-secondary btn--small">Checkout</a>
+                                    </div>
                                 </div>
                             </div>
+                            <!--End Minicart Popup-->
                         </div>
-                        <!--EndMinicart Popup-->
-                    </div>
-                    <div class="site-header__search">
-                    	<button type="button" class="search-trigger"><i class="icon anm anm-search-l"></i></button>
+
+                        <div class="site-header__search">
+                            <button type="button" class="search-trigger"><i
+                                    class="icon anm anm-search-l"></i></button>
+                        </div>
                     </div>
                 </div>
-        	</div>
+            </div>
         </div>
-    </div>
-    <!--End Header-->
-    <!--Mobile Menu-->
-    <div class="mobile-nav-wrapper" role="navigation">
-		<div class="closemobileMenu"><i class="icon anm anm-times-l pull-right"></i> Close Menu</div>
-        <ul id="MobileNav" class="mobile-nav">
-        	<li class="lvl1 parent megamenu"><a href="{{url('/')}}">Home</a>
-        </li>
-        	<li class="lvl1 parent megamenu"><a href="{{route('shops')}}">Shop</a>
-        </li>
-        	<li class="lvl1 parent megamenu"><a href="">Products <i class="anm anm-plus-l"></i></a>
-          <ul>
-            <li><a href="" class="site-nav">Product Page<i class="anm anm-plus-l"></i></a>
-              <ul>
-                <li><a href="product-layout-1.html" class="site-nav">Shoes</a></li>
-                <li><a href="product-layout-2.html" class="site-nav">Cloths</a></li>
-                <li><a href="product-layout-3.html" class="site-nav">Jewellery</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        	<li class="lvl1 parent megamenu"><a href="">Pages <i class="anm anm-plus-l"></i></a>
-          <ul>
-            <li><a href="{{route('checkout')}}" class="site-nav">Checkout</a></li>
-            <li><a href="{{route('aboutus')}}" class="site-nav">About Us<span class="lbl nm_label1">New</span></a></li>
-            <li><a href="{{route('contactus')}}" class="site-nav">Contact Us</a></li>
-            <li><a href="{{route('faq')}}" class="site-nav">FAQs</a></li>
-            <li><a href="{{route('comingsoon')}}" class="site-nav">Coming soon<span class="lbl nm_label1">New</span></a></li>
-          </ul>
-        </li>
-        	<li class="lvl1 parent megamenu"><a href="{{route('blog')}}">Blog</a>
-        </li>
-      </ul>
-	</div>
+        <!--End Header-->
+        <!--Mobile Menu-->
+        <div class="mobile-nav-wrapper" role="navigation">
+            <div class="closemobileMenu"><i class="icon anm anm-times-l pull-right"></i> Close Menu</div>
+            <ul id="MobileNav" class="mobile-nav">
+                <li class="lvl1 parent megamenu"><a href="{{ url('/') }}">Home</a>
+                </li>
+                <li class="lvl1 parent megamenu"><a href="{{ route('shops') }}">Shop</a>
+                </li>
+                <li class="lvl1 parent megamenu"><a href="">Pages <i class="anm anm-plus-l"></i></a>
+                    <ul>
+                        @auth
+                            @if (Auth::user()->usertype == 0)
+                                <li><a href="{{ route('cart.view') }}" class="site-nav">Checkout</a></li>
+                            @endif
+                        @else
+                            <li></li>
+                        @endauth
+                        <li><a href="{{ route('aboutus') }}" class="site-nav">About Us<span
+                                    class="lbl nm_label1">New</span></a></li>
+                        <li><a href="{{ route('contactus') }}" class="site-nav">Contact Us</a></li>
+                        <li><a href="{{ route('faq') }}" class="site-nav">FAQs</a></li>
+                        <li><a href="{{ route('comingsoon') }}" class="site-nav">Coming soon<span
+                                    class="lbl nm_label1">New</span></a></li>
+                    </ul>
+                </li>
+                <li class="lvl1 parent megamenu"><a href="{{ route('blog') }}">Blog</a>
+                </li>
+            </ul>
+        </div>
 	<!--End Mobile Menu-->
 
     <!--Body Content-->

@@ -120,34 +120,17 @@
                                             class="anm anm-angle-down-l"></i></a>
 
                                 </li>
-                                <li class="lvl1 parent megamenu"><a href="#">Products <i
-                                            class="anm anm-angle-down-l"></i></a>
-                                    <div class="megamenu style2">
-                                        <ul class="grid mmWrapper">
-                                            <li class="grid__item one-whole">
-                                                <ul class="grid">
-                                                    <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#"
-                                                            class="site-nav lvl-1">Product Page</a>
-                                                        <ul class="subLinks">
-                                                            <li class="lvl-2"><a href="product-layout-1.html"
-                                                                    class="site-nav lvl-2">Cloths</a></li>
-                                                            <li class="lvl-2"><a href="product-layout-2.html"
-                                                                    class="site-nav lvl-2">Shoes</a></li>
-                                                            <li class="lvl-2"><a href="product-layout-3.html"
-                                                                    class="site-nav lvl-2">Jewellery</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="grid__item large-up--one-whole imageCol"><a href="#"><img
-                                                        src="assets/images/megamenu-bg2.jpg" alt=""></a></li>
-                                        </ul>
-                                    </div>
-                                </li>
                                 <li class="lvl1 parent dropdown"><a href="#">Pages <i
                                             class="anm anm-angle-down-l"></i></a>
                                     <ul class="dropdown">
-                                        <li><a href="{{ route('checkout') }}" class="site-nav">Checkout</a></li>
+                                        @auth
+                                            @if (Auth::user()->usertype == 0)
+                                                <li><a href="{{ route('cart.view') }}" class="site-nav">Checkout</a></li>
+                                            @endif
+                                        @else
+                                            <li></li>
+                                        @endauth
+
                                         <li><a href="{{ route('aboutus') }}" class="site-nav">About Us <span
                                                     class="lbl nm_label1">New</span> </a></li>
                                         <li><a href="{{ route('contactus') }}" class="site-nav">Contact Us</a></li>
@@ -263,20 +246,15 @@
                 </li>
                 <li class="lvl1 parent megamenu"><a href="{{ route('shops') }}">Shop</a>
                 </li>
-                <li class="lvl1 parent megamenu"><a href="">Products <i class="anm anm-plus-l"></i></a>
-                    <ul>
-                        <li><a href="" class="site-nav">Product Page<i class="anm anm-plus-l"></i></a>
-                            <ul>
-                                <li><a href="product-layout-1.html" class="site-nav">Shoes</a></li>
-                                <li><a href="product-layout-2.html" class="site-nav">Cloths</a></li>
-                                <li><a href="product-layout-3.html" class="site-nav">Jewellery</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
                 <li class="lvl1 parent megamenu"><a href="">Pages <i class="anm anm-plus-l"></i></a>
                     <ul>
-                        <li><a href="{{ route('checkout') }}" class="site-nav">Checkout</a></li>
+                        @auth
+                            @if (Auth::user()->usertype == 0)
+                                <li><a href="{{ route('cart.view') }}" class="site-nav">Checkout</a></li>
+                            @endif
+                        @else
+                            <li></li>
+                        @endauth
                         <li><a href="{{ route('aboutus') }}" class="site-nav">About Us<span
                                     class="lbl nm_label1">New</span></a></li>
                         <li><a href="{{ route('contactus') }}" class="site-nav">Contact Us</a></li>
@@ -355,7 +333,7 @@
                                     <li rel="tab3">Sale</li>
                                 </ul>
                                 <style>
-                                    .product-image img{
+                                    .product-image img {
                                         width: 100%;
                                         height: 100%;
                                         object-fit: cover;
@@ -363,9 +341,9 @@
                                 </style>
                                 <div class="tab_container">
 
-                                        <div id="tab1" class="tab_content grid-products">
-                                            <div class="productSlider">
-                                                @foreach ($products as $product)
+                                    <div id="tab1" class="tab_content grid-products">
+                                        <div class="productSlider">
+                                            @foreach ($products as $product)
                                                 <div class="col-12 item">
                                                     <!-- start product image -->
                                                     <div class="product-image" style="width: 100%; height:300px;">
@@ -432,10 +410,10 @@
                                                     </div>
                                                     <!-- End product details -->
                                                 </div>
-                                                 @endforeach
+                                            @endforeach
 
-                                            </div>
                                         </div>
+                                    </div>
 
                                     <div id="tab2" class="tab_content grid-products">
                                         <div class="productSlider">
@@ -686,12 +664,12 @@
                     </div>
                     <div class="grid-products">
                         <style>
-                            .grid-view-item__link{
+                            .grid-view-item__link {
                                 width: 100%;
                                 height: 400px;
                             }
 
-                            .grid-view-item__link img{
+                            .grid-view-item__link img {
                                 width: 100%;
                                 height: 100%;
                                 object-fit: cover;
@@ -699,7 +677,7 @@
                         </style>
                         <div class="row">
                             @foreach ($products as $product)
-                            <div class="col-6 col-sm-6 col-md-4 col-lg-4 item grid-view-item style2">
+                                <div class="col-6 col-sm-6 col-md-4 col-lg-4 item grid-view-item style2">
 
                                     <div class="grid-view_image">
                                         <!-- start product image -->
@@ -744,7 +722,7 @@
                                         <!-- End product details -->
                                     </div>
 
-                            </div>
+                                </div>
                             @endforeach
                         </div>
                     </div>
@@ -762,31 +740,46 @@
                             </div>
                         </div>
                     </div>
+                    <style>
+                        .article__grid-image {
+                            width: 300px;
+                            height: 200px;
+                        }
+
+                        .article__grid-image img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    </style>
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="wrap-blog">
-                                <a href="blog-left-sidebar.html" class="article__grid-image">
-                                    <img src="{{ asset('landing/assets/images/blog/post-img1.jpg') }}"
-                                        alt="It's all about how you wear" title="It's all about how you wear"
-                                        class="blur-up lazyloaded" />
-                                </a>
-                                <div class="article__grid-meta article__grid-meta--has-image">
-                                    <div class="wrap-blog-inner">
-                                        <h2 class="h3 article__title">
-                                            <a href="blog-left-sidebar.html">It's all about how you wear</a>
-                                        </h2>
-                                        <span class="article__date">May 02, 2017</span>
-                                        <div class="rte article__grid-excerpt">
-                                            I must explain to you how all this mistaken idea of denouncing pleasure and
-                                            praising pain was born and I will give you a complete account...
+                        @foreach ($blogs as $blog)
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+
+                                <div class="wrap-blog">
+                                    <a href="blog-left-sidebar.html" class="article__grid-image">
+                                        <img src="{{ $blog->blog_photo }}" alt="It's all about how you wear"
+                                            title="It's all about how you wear" class="blur-up lazyloaded" />
+                                    </a>
+                                    <div class="article__grid-meta article__grid-meta--has-image">
+                                        <div class="wrap-blog-inner">
+                                            <h2 class="h3 article__title">
+                                                <a href="blog-left-sidebar.html">{{ $blog->blog_title }}</a>
+                                            </h2>
+                                            <span class="article__date">{{ $blog->created_at }}</span>
+                                            <div class="rte article__grid-excerpt">
+                                                {{ $blog->blog_description }}
+                                            </div>
+                                            <ul class="list--inline article__meta-buttons">
+                                                <li><a href="blog-article.html">Read more</a></li>
+                                            </ul>
                                         </div>
-                                        <ul class="list--inline article__meta-buttons">
-                                            <li><a href="blog-article.html">Read more</a></li>
-                                        </ul>
                                     </div>
                                 </div>
+
+
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
